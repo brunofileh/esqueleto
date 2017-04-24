@@ -1,0 +1,33 @@
+{
+    "name": "mg-code/yii2-assets",
+    "description": "Yii2 asset collection of useful JavaScript libraries",
+    "keywords": ["yii2", "extension", "assets", "history.js", "awesome-grid", "intl.js", "sly", "jquery.browser", "jquery-serialize-object", "js-cookie", "sticky"],
+    "homepage": "https://github.com/mg-code/yii2-assets",
+    "type": "yii2-extension",
+    "license": "BSD 3-Clause",
+    "authors": [
+        {
+            "name": "Maris Graudins",
+            "role": "Developer"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "yiisoft/yii2": "*"
+    },
+    "suggest": {
+        "bower-asset/awesome-grid": "Adds `awesome-grid` plugin support.",
+        "bower-asset/history.js": "Adds `history.js` plugin support.",
+        "bower-asset/intl": "Adds `Intl.js` plugin support.",
+        "bower-asset/sly": "Adds `sly` plugin support.",
+        "bower-asset/jquery.browser": "Adds `jquery.browser` plugin support.",
+        "bower-asset/jquery-serialize-object": "Adds `jquery-serialize-object` plugin support.",
+        "bower-asset/js-cookie": "Adds 'JavaScript Cookie' plugin support.",
+        "bower-asset/sticky": "Adds `sticky` plugin support."
+    },
+    "autoload": {
+        "psr-4": {
+            "mgcode\\assets\\": ""
+        }
+    }
+}

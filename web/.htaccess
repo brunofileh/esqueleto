@@ -1,0 +1,47 @@
+# Previne visualização de pastas e índices de diretórios
+<IfModule mod_autoindex.c>
+  Options -Indexes
+</IfModule>
+
+# Bloqueia o acesso a arquivos especiais
+<FilesMatch "(\.(bak|bat|cache|lock|conf|config|sql|fla|psd|ini|log|sh|inc|swp|dist|svn|git|project|properties|db|sass-cache|gitignore|bowerrc|yml)|~)$">
+  Order allow,deny
+  Deny from all
+  Satisfy All
+</FilesMatch>
+
+# Aumenta segurança dos cookies
+<IfModule php5_module>
+  php_value session.cookie_httponly true
+  
+  php_value max_input_vars 6000
+  php_value suhosin.get.max_vars 6000
+  php_value suhosin.post.max_vars 6000
+  php_value suhosin.request.max_vars 6000
+</IfModule>
+
+<IfModule mod_rewrite.c>
+  Options +FollowSymLinks
+  RewriteEngine on
+
+  DefaultLanguage pt-BR
+  AddDefaultCharset utf-8
+
+  # Microsoft Internet Explorer 12152 errors
+  SetEnvIf User-Agent "^" disable_keepalive=0
+  SetEnvIf User-Agent "MSIE [17-9]" disable_keepalive=1
+  SetEnvIf X-Requested-With "^(?!XMLHttpRequest).*" !disable_keepalive
+  SetEnvIf disable_keepalive 1 nokeepalive downgrade-1.0 force-response-1.0
+  
+  # bloqueia o acesso a diretórios ocultos
+  RewriteCond %{SCRIPT_FILENAME} -d
+  RewriteCond %{SCRIPT_FILENAME} -f
+  RewriteRule "(^|/)\." - [F]
+
+  # se um diretório ou arquivo existir então acessa diretamente
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+
+  # senão redireciona para @web/index.php
+  RewriteRule . index.php
+</IfModule>

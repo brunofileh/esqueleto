@@ -1,0 +1,19 @@
+actor: Tester
+config:
+  test_entry_url: http://localhost/projeto/trunk/web/index-test.php
+paths:
+  tests: tests
+  log: tests/_output
+  data: tests/_data
+  helpers: tests/_support
+settings:
+  bootstrap: _bootstrap.php
+  colors: true
+  memory_limit: 1024M
+modules:
+  config:
+    Db:
+     dsn: 'pgsql:host=127.0.0.1;dbname=projeto'
+     user: 'root'
+     password: '123456'
+     # dump: tests/_data/dump.sql

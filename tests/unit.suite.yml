@@ -1,0 +1,18 @@
+# Codeception Test Suite Configuration
+
+# suite for unit (internal) tests.
+class_name: UnitTester
+modules:
+  enabled: 
+    - Asserts
+    - UnitHelper
+    # - Yii2
+    - Db
+  config:
+    # Yii2:
+    #   configFile: 'config/web.php'
+    Db:
+      dsn: 'pgsql:host=127.0.0.1;dbname=projeto'
+      user: 'root'
+      password: '123456'
+

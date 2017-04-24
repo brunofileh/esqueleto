@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ColetaSNIS" default="inicio" basedir=".">
+
+	<property name="environment" value="hmg" />
+	<property name="svn.url" value="http://ilheus.cidades.gov.br/svn/projeto/projeto" />
+	<property name="svn.revision" value="HEAD" />
+	<property name="svn.exportDirProducao" value="../tags/prod" />
+	<property name="svn.exportDirHomologacao" value="../tags/hmg" />
+	<property name="svn.exportDirRevisao" value="" />
+
+	<target name="inicio">
+		<echo msg="Inicializando build" />
+		<if>
+			<not><isset property="environment" /></not>
+            <then>
+				<input propertyname="environment" validargs="hmg,prod" promptChar=":">qual ambiente?:  </input>
+            </then>
+        </if>
+
+		<if>
+			<not>
+				<isset property="svn.username" />
+			</not>
+			<then>
+				<input propertyname="svn.username" promptChar=":">svn username: </input>
+			</then>
+		</if>
+		
+		<if>
+			<not>
+				<isset property="svn.password" />
+			</not>
+			<then>
+				<input propertyname="svn.password" promptChar=":">svn password: </input>
+			</then>
+		</if>
+
+        <phingcall target="substituir-revisao"/>  
+        <echo msg="---------------- Build Finalizado ----------------" />
+    </target>
+
+	<!--[limpa o diretório de exportacao do projeto]-->
+	<target name="limpeza">
+		<echo msg="Realizando limpeza" />
+		<exec command="svn cleanup ../" logoutput="true"/>
+	</target>  
+
+	<target name="obter-revisao" depends="limpeza">
+		<echo msg="Obtendo a revisao" />
+		<svnlastrevision repositoryurl="${svn.url}/trunk" propertyname="svn.revision" />
+		<echo msg="Numero da revisao HEAD obtido: ${svn.revision}"/>
+		<property name="svn.exportDirRevisao" value="../tags/${environment}-${svn.revision}" override="yes"/>
+		<if>
+			<available file="${svn.exportDirRevisao}" type="dir"/>
+			<then>
+				<fail msg="----ja existe build para esta revisao: ${svn.exportDirRevisao} ----"/>
+			</then>
+		</if>
+	</target>
+
+
+	<!--[exporta a revisao]-->
+	<target name="exportar-revisao" depends="obter-revisao">
+		<tstamp>
+			<format property="DATE" pattern="%c" />
+		</tstamp>
+		<echo msg="[${DATE} +10min] Extraindo a revisao ${svn.revision} para ${svn.exportDirRevisao}" />
+		<svncopy 
+			repositoryurl="${svn.url}/trunk" 
+			todir="${svn.exportDirRevisao}" 
+			username="${svn.username}" 
+			password="${svn.password}" 
+		/>
+		<copy file="../trunk/config/db-${environment}.php" tofile="${svn.exportDirRevisao}/config/db.php" overwrite="true"/>
+		<copy file="../trunk/config/params-${environment}.php" tofile="${svn.exportDirRevisao}/config/params.php" overwrite="true"/>
+		<delete>
+			<fileset dir="${svn.exportDirRevisao}">
+				<include name=".bowerrc" />
+				<include name=".gitignore" />
+				<include name="build.xml" />
+				<include name="cept.bat" />
+				<include name="codeception.yml" />
+				<include name="composer.json" />
+				<include name="composer.lock" />
+				<include name="LICENSE.md" />
+				<include name="phing.bat" />
+				<include name="README.md" />
+				<include name="requirements.php" />
+				<include name="yii" />
+				<include name="yii.bat" />
+			</fileset>
+			<fileset dir="${svn.exportDirRevisao}/config">
+				<include name="db-${environment}.php" />
+				<include name="params-${environment}.php" />
+			</fileset>
+			<fileset dir="${svn.exportDirRevisao}/web">
+				<include name="index-test.php" />
+				<include name="requirements.php" />
+			</fileset>
+		</delete>
+		
+		<delete dir="${svn.exportDirRevisao}/documentos" failonerror="true" includeemptydirs="true"/>
+		<delete dir="${svn.exportDirRevisao}/tests" failonerror="true" includeemptydirs="true"/>
+		
+		<delete dir="${svn.exportDirRevisao}/runtime" failonerror="true" includeemptydirs="true"/>
+		<mkdir dir="${svn.exportDirRevisao}/runtime" mode="0777" />
+
+		<delete dir="${svn.exportDirRevisao}/web/assets" failonerror="true" includeemptydirs="true"/>
+		<mkdir dir="${svn.exportDirRevisao}/web/assets" mode="0777" />
+	</target>
+
+	<target name="comitar-revisao" depends="exportar-revisao">
+		<echo msg="Fazer o commit da revisao" />
+    	<propertyprompt
+			propertyName="fazerCommit" 
+			defaultValue="s" 
+			promptText="Comitar a revisao ${svn.revision} agora?:"
+		/>
+		<if>
+			<equals arg1="s" arg2="${fazerCommit}" />
+			<then>
+				<propertyprompt
+					propertyName="msgCommit" 
+					promptText="Mensagem para o commit:"
+				/>
+				
+				<echo msg="commitando revisao.." />
+
+				<exec command='svn add ${svn.exportDirRevisao} --force' logoutput="true"/>
+				<if>
+					<os family="unix" />
+					<then>
+						<exec command="svn status | ? { $_ -match '^!\s+(.*)' } | % { svn rm $Matches[1] }" logoutput="true"/>
+					</then>
+					<else>
+						<exec command='svn status ${svn.exportDirRevisao} | findstr /R "^!" > ${svn.exportDirRevisao}/missing.list' logoutput="true"/>
+						<exec command='for /F "tokens=2 delims= " %A in (${svn.exportDirRevisao}/missing.list) do (svn delete %A)' logoutput="true"/>
+						<delete file="${svn.exportDirRevisao}/missing.list"/>
+					</else>
+				</if>
+
+				<svncommit
+					username="${svn.username}"
+					password="${svn.password}"
+					nocache="true"
+					workingcopy="${svn.exportDirRevisao}"
+					message="[revisao ${svn.revision} por ${svn.username}] ${msgCommit}"
+				/>
+				<exec command="svn cleanup ${svn.exportDirRevisao}" logoutput="true"/>
+			</then>
+		</if>
+	</target>
+
+	<target name="substituir-revisao" depends="comitar-revisao">
+		<echo msg="substituir revisao" />
+    	<propertyprompt
+			propertyName="substituir-revisao" 
+			defaultValue="s" 
+			promptText="enviar a revisao para o ambiente ${environment}?:"
+		/>
+		<if>
+			<equals arg1="s" arg2="${substituir-revisao}" />
+			<then>
+				<delete dir="../tags/${environment}" failonerror="true" includeemptydirs="true"/>
+				<mkdir dir="../tags/${environment}" mode="0777" />
+				
+				<copy todir="../tags/${environment}" overwrite="true">
+					<fileset dir="${svn.exportDirRevisao}">
+						<include name="**" />
+					</fileset>
+				</copy>
+				
+				<exec command='svn add ../tags/${environment} --force' logoutput="true"/>
+				<exec command="svn commit ../tags/${environment} -m 'ambiente de ${environment} alterado por ${svn.username}'" logoutput="true"/>
+			</then>
+		</if>
+	</target>
+</project>
