@@ -19,7 +19,6 @@ else {
 
 ?>
 
-<?php  $this->beginBlock('conteudo-principal') ?>
 <div class="atributos-valores-index box box-default">
 
 	<div class="box-header with-border">
@@ -56,6 +55,3 @@ else {
 		<?= $this->blocks['menu-acoes'] ?>
 	</div>
 </div>
-
-
-<?php  $this->endBlock() ?>

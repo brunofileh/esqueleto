@@ -19,7 +19,6 @@ $model->fk_atributos_valores_atributos_id = $fk_atributos_valores_atributos_id;
 ?>
 
 <div class="atributos-valores-create">
-<?php  $this->beginBlock('conteudo-principal') ?>
 
     <?= $this->render('_form', [
         'model' => $model,
@@ -27,5 +26,4 @@ $model->fk_atributos_valores_atributos_id = $fk_atributos_valores_atributos_id;
         'linkBack' => $linkBack,
     ]) ?>
 	
-<?php  $this->endBlock() ?>
 </div>

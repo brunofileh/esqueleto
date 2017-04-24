@@ -10,7 +10,7 @@ $filename = './projeto.js';
 	// include './projeto/funcao.js';
 	include './projeto/ajax.js';
 	
-	include './app/glossario.js';
+	
 	// include './projeto/validador.js';
 
 	echo 'projeto = new Projeto();';

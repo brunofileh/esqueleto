@@ -68,7 +68,7 @@ use kartik\widgets\Typeahead;
 						'pluginEvents' => [
 							'typeahead:select' => 'function(evt, obj){
 
-								/* caso jah esteja na pagina só faz o scroll */
+								/* caso jah esteja na pagina só faz o scroll 
 								if (obj.grupo_id == "informacao" && location.pathname.indexOf("/glossario/") > 0) {
 									projeto.util.scrollTo(obj.id);
 									return;
@@ -105,7 +105,7 @@ use kartik\widgets\Typeahead;
 											;
 											break;
 									}
-								}
+								}*/
 							}'
 						],
 						'dataset' => [[

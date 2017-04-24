@@ -31,7 +31,7 @@ use yii\helpers\ArrayHelper;
 						'txt_nome'
 					), [
 						'prompt' => $this->app->params['txt-prompt-select'], 
-						'class' => 'chosen-select'
+						//'class' => 'chosen-select'
 					]
 				) ?>
 			</div>

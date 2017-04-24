@@ -16,7 +16,6 @@ $filterModulo =  $txtPrompt + ArrayHelper::map(TabModulos::find()->select(['cod_
 
 ?>
 
-<?php  $this->beginBlock('conteudo-principal') ?>
 <div class="parametros-index box box-default">
 
 	<div class="box-header with-border">
@@ -82,4 +81,3 @@ $filterModulo =  $txtPrompt + ArrayHelper::map(TabModulos::find()->select(['cod_
 </div>
 
 
-<?php  $this->endBlock() ?>

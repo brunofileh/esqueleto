@@ -12,7 +12,6 @@ $linkBack = Url::toRoute(['index', 'TabAtributosValoresSearch[fk_atributos_valor
 
 ?>
 
-<?php  $this->beginBlock('conteudo-principal') ?>
 <div class="tab-atributos-valores-view box box-default">
 
 	<div class="box-header with-border">
@@ -56,4 +55,3 @@ $linkBack = Url::toRoute(['index', 'TabAtributosValoresSearch[fk_atributos_valor
 		</div>
 	</div>
 </div>
-<?php  $this->endBlock() ?>

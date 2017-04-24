@@ -11,7 +11,6 @@ $infoModulo = $this->context->module->info;
 
 ?>
 
-<?php  $this->beginBlock('conteudo-principal') ?>
 <div class="tab-parametros-view box box-default">
 
     <div class="box-header with-border">
@@ -61,4 +60,3 @@ $infoModulo = $this->context->module->info;
 		</div>
     </div>
 </div>
-<?php  $this->endBlock() ?>
