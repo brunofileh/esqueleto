@@ -89,3 +89,1133 @@ $_SERVER = [
     'REQUEST_TIME_FLOAT' => 1493070121.615
     'REQUEST_TIME' => 1493070121
 ]
+2017-04-25 09:51:54 [127.0.0.1][1][fpcaoqfgucjaebjk1jfsqta217][error][yii\web\HttpException:404] exception 'yii\base\InvalidRouteException' with message 'Unable to resolve the request "financeiro".' in /var/www/esqueleto/vendor/yiisoft/yii2/base/Module.php:460
+Stack trace:
+#0 /var/www/esqueleto/vendor/yiisoft/yii2/web/Application.php(87): yii\base\Module->runAction('financeiro', Array)
+#1 /var/www/esqueleto/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 /var/www/esqueleto/web/index.php(27): yii\base\Application->run()
+#3 {main}
+
+Next exception 'yii\web\NotFoundHttpException' with message 'Página não encontrada.' in /var/www/esqueleto/vendor/yiisoft/yii2/web/Application.php:99
+Stack trace:
+#0 /var/www/esqueleto/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 /var/www/esqueleto/web/index.php(27): yii\base\Application->run()
+#2 {main}
+2017-04-25 09:51:54 [127.0.0.1][1][fpcaoqfgucjaebjk1jfsqta217][info][application] $_COOKIE = [
+    '_identity' => '6eafb6bb09fc08f699b7e9d6777feebdb21312bd23c40d446f28de0e5f4f2db0a:2:{i:0;s:9:\"_identity\";i:1;s:15:\"[1,\"1\",2592000]\";}'
+    'PHPSESSID' => '466n20nk4u73dm70s34d7rl0c5'
+    'projeto_dev' => 'fpcaoqfgucjaebjk1jfsqta217'
+    '_csrf' => 'fb34f810a4b84ec6552ab1b3b0cb8f2527fcd2579a12c281c81438abb1afc58fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"8D1qPi_e1RWqUz9m_AUW4gR-GtMFdtzj\";}'
+    'menu-aberto' => '1'
+    '__swuid' => '1'
+    '__swto' => '1493131812'
+]
+
+$_SESSION = [
+    '__flash' => []
+    'sessao-expirada' => '/scm/web/admin/perfis-funcionalidades-acoes/admin?cod_funcionalidade=187&cod_modulo=31'
+    '__returnUrl' => '/scm/web/admin/perfis-funcionalidades-acoes/admin?cod_funcionalidade=187&cod_modulo=31'
+    '__id' => '1'
+    'parametros.filtro' => [
+        'TabParametrosSearch' => [
+            'num_ano_ref' => 2015
+        ]
+    ]
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'localhost'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:52.0) Gecko/20100101 Firefox/52.0'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.5'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_REFERER' => 'http://localhost/esqueleto/web/admin/inicio'
+    'HTTP_COOKIE' => '_identity=6eafb6bb09fc08f699b7e9d6777feebdb21312bd23c40d446f28de0e5f4f2db0a%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A15%3A%22%5B1%2C%221%22%2C2592000%5D%22%3B%7D; PHPSESSID=466n20nk4u73dm70s34d7rl0c5; projeto_dev=fpcaoqfgucjaebjk1jfsqta217; _csrf=fb34f810a4b84ec6552ab1b3b0cb8f2527fcd2579a12c281c81438abb1afc58fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%228D1qPi_e1RWqUz9m_AUW4gR-GtMFdtzj%22%3B%7D; menu-aberto=1; __swuid=1; __swto=1493131812'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.18 (Ubuntu) Server at localhost Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.18 (Ubuntu)'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/var/www/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/'
+    'SERVER_ADMIN' => 'webmaster@localhost'
+    'SCRIPT_FILENAME' => '/var/www/esqueleto/web/index.php'
+    'REMOTE_PORT' => '32948'
+    'REDIRECT_URL' => '/esqueleto/web/financeiro'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/esqueleto/web/financeiro'
+    'SCRIPT_NAME' => '/esqueleto/web/index.php'
+    'PHP_SELF' => '/esqueleto/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1493124714.647
+    'REQUEST_TIME' => 1493124714
+]
+2017-04-25 09:53:29 [127.0.0.1][1][fpcaoqfgucjaebjk1jfsqta217][error][yii\web\HttpException:404] exception 'yii\web\NotFoundHttpException' with message 'Code generator not found: financeiro' in /var/www/esqueleto/vendor/yiisoft/yii2-gii/controllers/DefaultController.php:132
+Stack trace:
+#0 /var/www/esqueleto/projeto/gii/controllers/DefaultController.php(18): yii\gii\controllers\DefaultController->loadGenerator('financeiro')
+#1 [internal function]: projeto\gii\controllers\DefaultController->actionView('financeiro')
+#2 /var/www/esqueleto/vendor/yiisoft/yii2/base/InlineAction.php(55): call_user_func_array(Array, Array)
+#3 /var/www/esqueleto/vendor/yiisoft/yii2/base/Controller.php(154): yii\base\InlineAction->runWithParams(Array)
+#4 /var/www/esqueleto/vendor/yiisoft/yii2/base/Module.php(454): yii\base\Controller->runAction('view', Array)
+#5 /var/www/esqueleto/vendor/yiisoft/yii2/web/Application.php(87): yii\base\Module->runAction('gii/default/vie...', Array)
+#6 /var/www/esqueleto/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#7 /var/www/esqueleto/web/index.php(27): yii\base\Application->run()
+#8 {main}
+2017-04-25 09:53:29 [127.0.0.1][1][fpcaoqfgucjaebjk1jfsqta217][info][application] $_GET = [
+    'id' => 'financeiro'
+]
+
+$_COOKIE = [
+    '_identity' => '6eafb6bb09fc08f699b7e9d6777feebdb21312bd23c40d446f28de0e5f4f2db0a:2:{i:0;s:9:\"_identity\";i:1;s:15:\"[1,\"1\",2592000]\";}'
+    'PHPSESSID' => '466n20nk4u73dm70s34d7rl0c5'
+    'projeto_dev' => 'fpcaoqfgucjaebjk1jfsqta217'
+    '_csrf' => 'fb34f810a4b84ec6552ab1b3b0cb8f2527fcd2579a12c281c81438abb1afc58fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"8D1qPi_e1RWqUz9m_AUW4gR-GtMFdtzj\";}'
+    'menu-aberto' => '1'
+    '__swuid' => '1'
+    '__swto' => '1493131898'
+]
+
+$_SESSION = [
+    '__flash' => []
+    'sessao-expirada' => '/scm/web/admin/perfis-funcionalidades-acoes/admin?cod_funcionalidade=187&cod_modulo=31'
+    '__returnUrl' => '/scm/web/admin/perfis-funcionalidades-acoes/admin?cod_funcionalidade=187&cod_modulo=31'
+    '__id' => '1'
+    'parametros.filtro' => [
+        'TabParametrosSearch' => [
+            'num_ano_ref' => 2015
+        ]
+    ]
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'localhost'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:52.0) Gecko/20100101 Firefox/52.0'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.5'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_COOKIE' => '_identity=6eafb6bb09fc08f699b7e9d6777feebdb21312bd23c40d446f28de0e5f4f2db0a%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A15%3A%22%5B1%2C%221%22%2C2592000%5D%22%3B%7D; PHPSESSID=466n20nk4u73dm70s34d7rl0c5; projeto_dev=fpcaoqfgucjaebjk1jfsqta217; _csrf=fb34f810a4b84ec6552ab1b3b0cb8f2527fcd2579a12c281c81438abb1afc58fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%228D1qPi_e1RWqUz9m_AUW4gR-GtMFdtzj%22%3B%7D; menu-aberto=1; __swuid=1; __swto=1493131898'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.18 (Ubuntu) Server at localhost Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.18 (Ubuntu)'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/var/www/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/'
+    'SERVER_ADMIN' => 'webmaster@localhost'
+    'SCRIPT_FILENAME' => '/var/www/esqueleto/web/index.php'
+    'REMOTE_PORT' => '33030'
+    'REDIRECT_URL' => '/esqueleto/web/gii/financeiro'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/esqueleto/web/gii/financeiro'
+    'SCRIPT_NAME' => '/esqueleto/web/index.php'
+    'PHP_SELF' => '/esqueleto/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1493124809.036
+    'REQUEST_TIME' => 1493124809
+]
+2017-04-25 09:53:36 [127.0.0.1][1][fpcaoqfgucjaebjk1jfsqta217][error][yii\web\HttpException:404] exception 'yii\base\InvalidRouteException' with message 'Unable to resolve the request "finaceiro".' in /var/www/esqueleto/vendor/yiisoft/yii2/base/Module.php:460
+Stack trace:
+#0 /var/www/esqueleto/vendor/yiisoft/yii2/web/Application.php(87): yii\base\Module->runAction('finaceiro', Array)
+#1 /var/www/esqueleto/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 /var/www/esqueleto/web/index.php(27): yii\base\Application->run()
+#3 {main}
+
+Next exception 'yii\web\NotFoundHttpException' with message 'Página não encontrada.' in /var/www/esqueleto/vendor/yiisoft/yii2/web/Application.php:99
+Stack trace:
+#0 /var/www/esqueleto/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 /var/www/esqueleto/web/index.php(27): yii\base\Application->run()
+#2 {main}
+2017-04-25 09:53:36 [127.0.0.1][1][fpcaoqfgucjaebjk1jfsqta217][info][application] $_COOKIE = [
+    '_identity' => '6eafb6bb09fc08f699b7e9d6777feebdb21312bd23c40d446f28de0e5f4f2db0a:2:{i:0;s:9:\"_identity\";i:1;s:15:\"[1,\"1\",2592000]\";}'
+    'PHPSESSID' => '466n20nk4u73dm70s34d7rl0c5'
+    'projeto_dev' => 'fpcaoqfgucjaebjk1jfsqta217'
+    '_csrf' => 'fb34f810a4b84ec6552ab1b3b0cb8f2527fcd2579a12c281c81438abb1afc58fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"8D1qPi_e1RWqUz9m_AUW4gR-GtMFdtzj\";}'
+    'menu-aberto' => '1'
+    '__swuid' => '1'
+    '__swto' => '1493131909'
+]
+
+$_SESSION = [
+    '__flash' => []
+    'sessao-expirada' => '/scm/web/admin/perfis-funcionalidades-acoes/admin?cod_funcionalidade=187&cod_modulo=31'
+    '__returnUrl' => '/scm/web/admin/perfis-funcionalidades-acoes/admin?cod_funcionalidade=187&cod_modulo=31'
+    '__id' => '1'
+    'parametros.filtro' => [
+        'TabParametrosSearch' => [
+            'num_ano_ref' => 2015
+        ]
+    ]
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'localhost'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:52.0) Gecko/20100101 Firefox/52.0'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.5'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_COOKIE' => '_identity=6eafb6bb09fc08f699b7e9d6777feebdb21312bd23c40d446f28de0e5f4f2db0a%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A15%3A%22%5B1%2C%221%22%2C2592000%5D%22%3B%7D; PHPSESSID=466n20nk4u73dm70s34d7rl0c5; projeto_dev=fpcaoqfgucjaebjk1jfsqta217; _csrf=fb34f810a4b84ec6552ab1b3b0cb8f2527fcd2579a12c281c81438abb1afc58fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%228D1qPi_e1RWqUz9m_AUW4gR-GtMFdtzj%22%3B%7D; menu-aberto=1; __swuid=1; __swto=1493131909'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.18 (Ubuntu) Server at localhost Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.18 (Ubuntu)'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/var/www/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/'
+    'SERVER_ADMIN' => 'webmaster@localhost'
+    'SCRIPT_FILENAME' => '/var/www/esqueleto/web/index.php'
+    'REMOTE_PORT' => '33048'
+    'REDIRECT_URL' => '/esqueleto/web/finaceiro'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/esqueleto/web/finaceiro'
+    'SCRIPT_NAME' => '/esqueleto/web/index.php'
+    'PHP_SELF' => '/esqueleto/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1493124816.706
+    'REQUEST_TIME' => 1493124816
+]
+2017-04-25 09:58:19 [127.0.0.1][1][fpcaoqfgucjaebjk1jfsqta217][error][yii\web\HttpException:404] exception 'yii\base\InvalidRouteException' with message 'Unable to resolve the request "financeiro".' in /var/www/esqueleto/vendor/yiisoft/yii2/base/Module.php:460
+Stack trace:
+#0 /var/www/esqueleto/vendor/yiisoft/yii2/web/Application.php(87): yii\base\Module->runAction('financeiro', Array)
+#1 /var/www/esqueleto/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 /var/www/esqueleto/web/index.php(27): yii\base\Application->run()
+#3 {main}
+
+Next exception 'yii\web\NotFoundHttpException' with message 'Página não encontrada.' in /var/www/esqueleto/vendor/yiisoft/yii2/web/Application.php:99
+Stack trace:
+#0 /var/www/esqueleto/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 /var/www/esqueleto/web/index.php(27): yii\base\Application->run()
+#2 {main}
+2017-04-25 09:58:19 [127.0.0.1][1][fpcaoqfgucjaebjk1jfsqta217][info][application] $_COOKIE = [
+    '_identity' => '6eafb6bb09fc08f699b7e9d6777feebdb21312bd23c40d446f28de0e5f4f2db0a:2:{i:0;s:9:\"_identity\";i:1;s:15:\"[1,\"1\",2592000]\";}'
+    'PHPSESSID' => '466n20nk4u73dm70s34d7rl0c5'
+    'projeto_dev' => 'fpcaoqfgucjaebjk1jfsqta217'
+    '_csrf' => 'fb34f810a4b84ec6552ab1b3b0cb8f2527fcd2579a12c281c81438abb1afc58fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"8D1qPi_e1RWqUz9m_AUW4gR-GtMFdtzj\";}'
+    'menu-aberto' => '1'
+    '__swuid' => '1'
+    '__swto' => '1493132085'
+]
+
+$_SESSION = [
+    '__flash' => []
+    'sessao-expirada' => '/scm/web/admin/perfis-funcionalidades-acoes/admin?cod_funcionalidade=187&cod_modulo=31'
+    '__returnUrl' => '/scm/web/admin/perfis-funcionalidades-acoes/admin?cod_funcionalidade=187&cod_modulo=31'
+    '__id' => '1'
+    'parametros.filtro' => [
+        'TabParametrosSearch' => [
+            'num_ano_ref' => 2015
+        ]
+    ]
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'localhost'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:52.0) Gecko/20100101 Firefox/52.0'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.5'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_COOKIE' => '_identity=6eafb6bb09fc08f699b7e9d6777feebdb21312bd23c40d446f28de0e5f4f2db0a%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A15%3A%22%5B1%2C%221%22%2C2592000%5D%22%3B%7D; PHPSESSID=466n20nk4u73dm70s34d7rl0c5; projeto_dev=fpcaoqfgucjaebjk1jfsqta217; _csrf=fb34f810a4b84ec6552ab1b3b0cb8f2527fcd2579a12c281c81438abb1afc58fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%228D1qPi_e1RWqUz9m_AUW4gR-GtMFdtzj%22%3B%7D; menu-aberto=1; __swuid=1; __swto=1493132085'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.18 (Ubuntu) Server at localhost Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.18 (Ubuntu)'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/var/www/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/'
+    'SERVER_ADMIN' => 'webmaster@localhost'
+    'SCRIPT_FILENAME' => '/var/www/esqueleto/web/index.php'
+    'REMOTE_PORT' => '33152'
+    'REDIRECT_URL' => '/esqueleto/web/financeiro'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/esqueleto/web/financeiro'
+    'SCRIPT_NAME' => '/esqueleto/web/index.php'
+    'PHP_SELF' => '/esqueleto/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1493125099.189
+    'REQUEST_TIME' => 1493125099
+]
+2017-04-25 09:58:28 [127.0.0.1][1][fpcaoqfgucjaebjk1jfsqta217][error][yii\web\HttpException:404] exception 'yii\base\InvalidRouteException' with message 'Unable to resolve the request "comercial".' in /var/www/esqueleto/vendor/yiisoft/yii2/base/Module.php:460
+Stack trace:
+#0 /var/www/esqueleto/vendor/yiisoft/yii2/web/Application.php(87): yii\base\Module->runAction('comercial', Array)
+#1 /var/www/esqueleto/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 /var/www/esqueleto/web/index.php(27): yii\base\Application->run()
+#3 {main}
+
+Next exception 'yii\web\NotFoundHttpException' with message 'Página não encontrada.' in /var/www/esqueleto/vendor/yiisoft/yii2/web/Application.php:99
+Stack trace:
+#0 /var/www/esqueleto/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 /var/www/esqueleto/web/index.php(27): yii\base\Application->run()
+#2 {main}
+2017-04-25 09:58:28 [127.0.0.1][1][fpcaoqfgucjaebjk1jfsqta217][info][application] $_COOKIE = [
+    '_identity' => '6eafb6bb09fc08f699b7e9d6777feebdb21312bd23c40d446f28de0e5f4f2db0a:2:{i:0;s:9:\"_identity\";i:1;s:15:\"[1,\"1\",2592000]\";}'
+    'PHPSESSID' => '466n20nk4u73dm70s34d7rl0c5'
+    'projeto_dev' => 'fpcaoqfgucjaebjk1jfsqta217'
+    '_csrf' => 'fb34f810a4b84ec6552ab1b3b0cb8f2527fcd2579a12c281c81438abb1afc58fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"8D1qPi_e1RWqUz9m_AUW4gR-GtMFdtzj\";}'
+    'menu-aberto' => '1'
+    '__swuid' => '1'
+    '__swto' => '1493132199'
+]
+
+$_SESSION = [
+    '__flash' => []
+    'sessao-expirada' => '/scm/web/admin/perfis-funcionalidades-acoes/admin?cod_funcionalidade=187&cod_modulo=31'
+    '__returnUrl' => '/scm/web/admin/perfis-funcionalidades-acoes/admin?cod_funcionalidade=187&cod_modulo=31'
+    '__id' => '1'
+    'parametros.filtro' => [
+        'TabParametrosSearch' => [
+            'num_ano_ref' => 2015
+        ]
+    ]
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'localhost'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:52.0) Gecko/20100101 Firefox/52.0'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.5'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_COOKIE' => '_identity=6eafb6bb09fc08f699b7e9d6777feebdb21312bd23c40d446f28de0e5f4f2db0a%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A15%3A%22%5B1%2C%221%22%2C2592000%5D%22%3B%7D; PHPSESSID=466n20nk4u73dm70s34d7rl0c5; projeto_dev=fpcaoqfgucjaebjk1jfsqta217; _csrf=fb34f810a4b84ec6552ab1b3b0cb8f2527fcd2579a12c281c81438abb1afc58fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%228D1qPi_e1RWqUz9m_AUW4gR-GtMFdtzj%22%3B%7D; menu-aberto=1; __swuid=1; __swto=1493132199'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.18 (Ubuntu) Server at localhost Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.18 (Ubuntu)'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/var/www/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/'
+    'SERVER_ADMIN' => 'webmaster@localhost'
+    'SCRIPT_FILENAME' => '/var/www/esqueleto/web/index.php'
+    'REMOTE_PORT' => '33172'
+    'REDIRECT_URL' => '/esqueleto/web/comercial'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/esqueleto/web/comercial'
+    'SCRIPT_NAME' => '/esqueleto/web/index.php'
+    'PHP_SELF' => '/esqueleto/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1493125108.754
+    'REQUEST_TIME' => 1493125108
+]
+2017-04-25 10:01:31 [127.0.0.1][1][fpcaoqfgucjaebjk1jfsqta217][error][yii\web\HttpException:404] exception 'yii\base\InvalidRouteException' with message 'Unable to resolve the request "financeiro/inicio".' in /var/www/esqueleto/vendor/yiisoft/yii2/base/Module.php:460
+Stack trace:
+#0 /var/www/esqueleto/vendor/yiisoft/yii2/web/Application.php(87): yii\base\Module->runAction('financeiro/inic...', Array)
+#1 /var/www/esqueleto/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 /var/www/esqueleto/web/index.php(27): yii\base\Application->run()
+#3 {main}
+
+Next exception 'yii\web\NotFoundHttpException' with message 'Página não encontrada.' in /var/www/esqueleto/vendor/yiisoft/yii2/web/Application.php:99
+Stack trace:
+#0 /var/www/esqueleto/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 /var/www/esqueleto/web/index.php(27): yii\base\Application->run()
+#2 {main}
+2017-04-25 10:01:31 [127.0.0.1][1][fpcaoqfgucjaebjk1jfsqta217][info][application] $_COOKIE = [
+    '_identity' => '6eafb6bb09fc08f699b7e9d6777feebdb21312bd23c40d446f28de0e5f4f2db0a:2:{i:0;s:9:\"_identity\";i:1;s:15:\"[1,\"1\",2592000]\";}'
+    'PHPSESSID' => '466n20nk4u73dm70s34d7rl0c5'
+    'projeto_dev' => 'fpcaoqfgucjaebjk1jfsqta217'
+    '_csrf' => 'fb34f810a4b84ec6552ab1b3b0cb8f2527fcd2579a12c281c81438abb1afc58fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"8D1qPi_e1RWqUz9m_AUW4gR-GtMFdtzj\";}'
+    'menu-aberto' => '1'
+    '__swuid' => '1'
+    '__swto' => '1493132386'
+]
+
+$_SESSION = [
+    '__flash' => []
+    'sessao-expirada' => '/scm/web/admin/perfis-funcionalidades-acoes/admin?cod_funcionalidade=187&cod_modulo=31'
+    '__returnUrl' => '/scm/web/admin/perfis-funcionalidades-acoes/admin?cod_funcionalidade=187&cod_modulo=31'
+    '__id' => '1'
+    'parametros.filtro' => [
+        'TabParametrosSearch' => [
+            'num_ano_ref' => 2015
+        ]
+    ]
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'localhost'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:52.0) Gecko/20100101 Firefox/52.0'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.5'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_COOKIE' => '_identity=6eafb6bb09fc08f699b7e9d6777feebdb21312bd23c40d446f28de0e5f4f2db0a%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A15%3A%22%5B1%2C%221%22%2C2592000%5D%22%3B%7D; PHPSESSID=466n20nk4u73dm70s34d7rl0c5; projeto_dev=fpcaoqfgucjaebjk1jfsqta217; _csrf=fb34f810a4b84ec6552ab1b3b0cb8f2527fcd2579a12c281c81438abb1afc58fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%228D1qPi_e1RWqUz9m_AUW4gR-GtMFdtzj%22%3B%7D; menu-aberto=1; __swuid=1; __swto=1493132386'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.18 (Ubuntu) Server at localhost Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.18 (Ubuntu)'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/var/www/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/'
+    'SERVER_ADMIN' => 'webmaster@localhost'
+    'SCRIPT_FILENAME' => '/var/www/esqueleto/web/index.php'
+    'REMOTE_PORT' => '33204'
+    'REDIRECT_URL' => '/esqueleto/web/financeiro/inicio'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/esqueleto/web/financeiro/inicio'
+    'SCRIPT_NAME' => '/esqueleto/web/index.php'
+    'PHP_SELF' => '/esqueleto/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1493125291.015
+    'REQUEST_TIME' => 1493125291
+]
+2017-04-25 10:03:11 [127.0.0.1][1][fpcaoqfgucjaebjk1jfsqta217][error][yii\web\HttpException:404] exception 'yii\base\InvalidRouteException' with message 'Unable to resolve the request "financeiro/inicio".' in /var/www/esqueleto/vendor/yiisoft/yii2/base/Module.php:460
+Stack trace:
+#0 /var/www/esqueleto/vendor/yiisoft/yii2/web/Application.php(87): yii\base\Module->runAction('financeiro/inic...', Array)
+#1 /var/www/esqueleto/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 /var/www/esqueleto/web/index.php(27): yii\base\Application->run()
+#3 {main}
+
+Next exception 'yii\web\NotFoundHttpException' with message 'Página não encontrada.' in /var/www/esqueleto/vendor/yiisoft/yii2/web/Application.php:99
+Stack trace:
+#0 /var/www/esqueleto/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 /var/www/esqueleto/web/index.php(27): yii\base\Application->run()
+#2 {main}
+2017-04-25 10:03:11 [127.0.0.1][1][fpcaoqfgucjaebjk1jfsqta217][info][application] $_COOKIE = [
+    '_identity' => '6eafb6bb09fc08f699b7e9d6777feebdb21312bd23c40d446f28de0e5f4f2db0a:2:{i:0;s:9:\"_identity\";i:1;s:15:\"[1,\"1\",2592000]\";}'
+    'PHPSESSID' => '466n20nk4u73dm70s34d7rl0c5'
+    'projeto_dev' => 'fpcaoqfgucjaebjk1jfsqta217'
+    '_csrf' => 'fb34f810a4b84ec6552ab1b3b0cb8f2527fcd2579a12c281c81438abb1afc58fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"8D1qPi_e1RWqUz9m_AUW4gR-GtMFdtzj\";}'
+    'menu-aberto' => '1'
+    '__swuid' => '1'
+    '__swto' => '1493132391'
+]
+
+$_SESSION = [
+    '__flash' => []
+    'sessao-expirada' => '/scm/web/admin/perfis-funcionalidades-acoes/admin?cod_funcionalidade=187&cod_modulo=31'
+    '__returnUrl' => '/scm/web/admin/perfis-funcionalidades-acoes/admin?cod_funcionalidade=187&cod_modulo=31'
+    '__id' => '1'
+    'parametros.filtro' => [
+        'TabParametrosSearch' => [
+            'num_ano_ref' => 2015
+        ]
+    ]
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'localhost'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:52.0) Gecko/20100101 Firefox/52.0'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.5'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_COOKIE' => '_identity=6eafb6bb09fc08f699b7e9d6777feebdb21312bd23c40d446f28de0e5f4f2db0a%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A15%3A%22%5B1%2C%221%22%2C2592000%5D%22%3B%7D; PHPSESSID=466n20nk4u73dm70s34d7rl0c5; projeto_dev=fpcaoqfgucjaebjk1jfsqta217; _csrf=fb34f810a4b84ec6552ab1b3b0cb8f2527fcd2579a12c281c81438abb1afc58fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%228D1qPi_e1RWqUz9m_AUW4gR-GtMFdtzj%22%3B%7D; menu-aberto=1; __swuid=1; __swto=1493132391'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.18 (Ubuntu) Server at localhost Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.18 (Ubuntu)'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/var/www/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/'
+    'SERVER_ADMIN' => 'webmaster@localhost'
+    'SCRIPT_FILENAME' => '/var/www/esqueleto/web/index.php'
+    'REMOTE_PORT' => '33244'
+    'REDIRECT_URL' => '/esqueleto/web/financeiro/inicio'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/esqueleto/web/financeiro/inicio'
+    'SCRIPT_NAME' => '/esqueleto/web/index.php'
+    'PHP_SELF' => '/esqueleto/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1493125391.19
+    'REQUEST_TIME' => 1493125391
+]
+2017-04-25 10:04:25 [127.0.0.1][1][fpcaoqfgucjaebjk1jfsqta217][error][yii\web\HttpException:404] exception 'yii\base\InvalidRouteException' with message 'Unable to resolve the request "financeiro/inicio".' in /var/www/esqueleto/vendor/yiisoft/yii2/base/Module.php:460
+Stack trace:
+#0 /var/www/esqueleto/vendor/yiisoft/yii2/web/Application.php(87): yii\base\Module->runAction('financeiro/inic...', Array)
+#1 /var/www/esqueleto/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 /var/www/esqueleto/web/index.php(27): yii\base\Application->run()
+#3 {main}
+
+Next exception 'yii\web\NotFoundHttpException' with message 'Página não encontrada.' in /var/www/esqueleto/vendor/yiisoft/yii2/web/Application.php:99
+Stack trace:
+#0 /var/www/esqueleto/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 /var/www/esqueleto/web/index.php(27): yii\base\Application->run()
+#2 {main}
+2017-04-25 10:04:25 [127.0.0.1][1][fpcaoqfgucjaebjk1jfsqta217][info][application] $_COOKIE = [
+    '_identity' => '6eafb6bb09fc08f699b7e9d6777feebdb21312bd23c40d446f28de0e5f4f2db0a:2:{i:0;s:9:\"_identity\";i:1;s:15:\"[1,\"1\",2592000]\";}'
+    'PHPSESSID' => '466n20nk4u73dm70s34d7rl0c5'
+    'projeto_dev' => 'fpcaoqfgucjaebjk1jfsqta217'
+    '_csrf' => 'fb34f810a4b84ec6552ab1b3b0cb8f2527fcd2579a12c281c81438abb1afc58fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"8D1qPi_e1RWqUz9m_AUW4gR-GtMFdtzj\";}'
+    'menu-aberto' => '1'
+    '__swuid' => '1'
+    '__swto' => '1493132491'
+]
+
+$_SESSION = [
+    '__flash' => []
+    'sessao-expirada' => '/scm/web/admin/perfis-funcionalidades-acoes/admin?cod_funcionalidade=187&cod_modulo=31'
+    '__returnUrl' => '/scm/web/admin/perfis-funcionalidades-acoes/admin?cod_funcionalidade=187&cod_modulo=31'
+    '__id' => '1'
+    'parametros.filtro' => [
+        'TabParametrosSearch' => [
+            'num_ano_ref' => 2015
+        ]
+    ]
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'localhost'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:52.0) Gecko/20100101 Firefox/52.0'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.5'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_COOKIE' => '_identity=6eafb6bb09fc08f699b7e9d6777feebdb21312bd23c40d446f28de0e5f4f2db0a%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A15%3A%22%5B1%2C%221%22%2C2592000%5D%22%3B%7D; PHPSESSID=466n20nk4u73dm70s34d7rl0c5; projeto_dev=fpcaoqfgucjaebjk1jfsqta217; _csrf=fb34f810a4b84ec6552ab1b3b0cb8f2527fcd2579a12c281c81438abb1afc58fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%228D1qPi_e1RWqUz9m_AUW4gR-GtMFdtzj%22%3B%7D; menu-aberto=1; __swuid=1; __swto=1493132491'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.18 (Ubuntu) Server at localhost Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.18 (Ubuntu)'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/var/www/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/'
+    'SERVER_ADMIN' => 'webmaster@localhost'
+    'SCRIPT_FILENAME' => '/var/www/esqueleto/web/index.php'
+    'REMOTE_PORT' => '33264'
+    'REDIRECT_URL' => '/esqueleto/web/financeiro/inicio'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/esqueleto/web/financeiro/inicio'
+    'SCRIPT_NAME' => '/esqueleto/web/index.php'
+    'PHP_SELF' => '/esqueleto/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1493125465.731
+    'REQUEST_TIME' => 1493125465
+]
+2017-04-25 10:04:54 [127.0.0.1][1][fpcaoqfgucjaebjk1jfsqta217][error][yii\web\HttpException:404] exception 'yii\base\InvalidRouteException' with message 'Unable to resolve the request "comercial/inicio".' in /var/www/esqueleto/vendor/yiisoft/yii2/base/Module.php:460
+Stack trace:
+#0 /var/www/esqueleto/vendor/yiisoft/yii2/web/Application.php(87): yii\base\Module->runAction('comercial/inici...', Array)
+#1 /var/www/esqueleto/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 /var/www/esqueleto/web/index.php(27): yii\base\Application->run()
+#3 {main}
+
+Next exception 'yii\web\NotFoundHttpException' with message 'Página não encontrada.' in /var/www/esqueleto/vendor/yiisoft/yii2/web/Application.php:99
+Stack trace:
+#0 /var/www/esqueleto/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 /var/www/esqueleto/web/index.php(27): yii\base\Application->run()
+#2 {main}
+2017-04-25 10:04:53 [127.0.0.1][1][fpcaoqfgucjaebjk1jfsqta217][info][application] $_COOKIE = [
+    '_identity' => '6eafb6bb09fc08f699b7e9d6777feebdb21312bd23c40d446f28de0e5f4f2db0a:2:{i:0;s:9:\"_identity\";i:1;s:15:\"[1,\"1\",2592000]\";}'
+    'PHPSESSID' => '466n20nk4u73dm70s34d7rl0c5'
+    'projeto_dev' => 'fpcaoqfgucjaebjk1jfsqta217'
+    '_csrf' => 'fb34f810a4b84ec6552ab1b3b0cb8f2527fcd2579a12c281c81438abb1afc58fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"8D1qPi_e1RWqUz9m_AUW4gR-GtMFdtzj\";}'
+    'menu-aberto' => '1'
+    '__swuid' => '1'
+    '__swto' => '1493132586'
+]
+
+$_SESSION = [
+    '__flash' => []
+    'sessao-expirada' => '/scm/web/admin/perfis-funcionalidades-acoes/admin?cod_funcionalidade=187&cod_modulo=31'
+    '__returnUrl' => '/scm/web/admin/perfis-funcionalidades-acoes/admin?cod_funcionalidade=187&cod_modulo=31'
+    '__id' => '1'
+    'parametros.filtro' => [
+        'TabParametrosSearch' => [
+            'num_ano_ref' => 2015
+        ]
+    ]
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'localhost'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:52.0) Gecko/20100101 Firefox/52.0'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.5'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_COOKIE' => '_identity=6eafb6bb09fc08f699b7e9d6777feebdb21312bd23c40d446f28de0e5f4f2db0a%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A15%3A%22%5B1%2C%221%22%2C2592000%5D%22%3B%7D; PHPSESSID=466n20nk4u73dm70s34d7rl0c5; projeto_dev=fpcaoqfgucjaebjk1jfsqta217; _csrf=fb34f810a4b84ec6552ab1b3b0cb8f2527fcd2579a12c281c81438abb1afc58fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%228D1qPi_e1RWqUz9m_AUW4gR-GtMFdtzj%22%3B%7D; menu-aberto=1; __swuid=1; __swto=1493132586'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.18 (Ubuntu) Server at localhost Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.18 (Ubuntu)'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/var/www/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/'
+    'SERVER_ADMIN' => 'webmaster@localhost'
+    'SCRIPT_FILENAME' => '/var/www/esqueleto/web/index.php'
+    'REMOTE_PORT' => '33304'
+    'REDIRECT_URL' => '/esqueleto/web/comercial/inicio'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/esqueleto/web/comercial/inicio'
+    'SCRIPT_NAME' => '/esqueleto/web/index.php'
+    'PHP_SELF' => '/esqueleto/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1493125493.953
+    'REQUEST_TIME' => 1493125493
+]
+2017-04-25 10:11:10 [127.0.0.1][1][fpcaoqfgucjaebjk1jfsqta217][error][yii\web\HttpException:404] exception 'yii\base\InvalidRouteException' with message 'Unable to resolve the request "financeiro/inicio".' in /var/www/esqueleto/vendor/yiisoft/yii2/base/Module.php:460
+Stack trace:
+#0 /var/www/esqueleto/vendor/yiisoft/yii2/web/Application.php(87): yii\base\Module->runAction('financeiro/inic...', Array)
+#1 /var/www/esqueleto/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 /var/www/esqueleto/web/index.php(27): yii\base\Application->run()
+#3 {main}
+
+Next exception 'yii\web\NotFoundHttpException' with message 'Página não encontrada.' in /var/www/esqueleto/vendor/yiisoft/yii2/web/Application.php:99
+Stack trace:
+#0 /var/www/esqueleto/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 /var/www/esqueleto/web/index.php(27): yii\base\Application->run()
+#2 {main}
+2017-04-25 10:11:10 [127.0.0.1][1][fpcaoqfgucjaebjk1jfsqta217][info][application] $_COOKIE = [
+    '_identity' => '6eafb6bb09fc08f699b7e9d6777feebdb21312bd23c40d446f28de0e5f4f2db0a:2:{i:0;s:9:\"_identity\";i:1;s:15:\"[1,\"1\",2592000]\";}'
+    'PHPSESSID' => '466n20nk4u73dm70s34d7rl0c5'
+    'projeto_dev' => 'fpcaoqfgucjaebjk1jfsqta217'
+    '_csrf' => 'fb34f810a4b84ec6552ab1b3b0cb8f2527fcd2579a12c281c81438abb1afc58fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"8D1qPi_e1RWqUz9m_AUW4gR-GtMFdtzj\";}'
+    'menu-aberto' => '1'
+    '__swuid' => '1'
+    '__swto' => '1493132594'
+]
+
+$_SESSION = [
+    '__flash' => []
+    'sessao-expirada' => '/scm/web/admin/perfis-funcionalidades-acoes/admin?cod_funcionalidade=187&cod_modulo=31'
+    '__returnUrl' => '/scm/web/admin/perfis-funcionalidades-acoes/admin?cod_funcionalidade=187&cod_modulo=31'
+    '__id' => '1'
+    'parametros.filtro' => [
+        'TabParametrosSearch' => [
+            'num_ano_ref' => 2015
+        ]
+    ]
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'localhost'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:52.0) Gecko/20100101 Firefox/52.0'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.5'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_COOKIE' => '_identity=6eafb6bb09fc08f699b7e9d6777feebdb21312bd23c40d446f28de0e5f4f2db0a%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A15%3A%22%5B1%2C%221%22%2C2592000%5D%22%3B%7D; PHPSESSID=466n20nk4u73dm70s34d7rl0c5; projeto_dev=fpcaoqfgucjaebjk1jfsqta217; _csrf=fb34f810a4b84ec6552ab1b3b0cb8f2527fcd2579a12c281c81438abb1afc58fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%228D1qPi_e1RWqUz9m_AUW4gR-GtMFdtzj%22%3B%7D; menu-aberto=1; __swuid=1; __swto=1493132594'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.18 (Ubuntu) Server at localhost Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.18 (Ubuntu)'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/var/www/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/'
+    'SERVER_ADMIN' => 'webmaster@localhost'
+    'SCRIPT_FILENAME' => '/var/www/esqueleto/web/index.php'
+    'REMOTE_PORT' => '33324'
+    'REDIRECT_URL' => '/esqueleto/web/financeiro/inicio'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/esqueleto/web/financeiro/inicio'
+    'SCRIPT_NAME' => '/esqueleto/web/index.php'
+    'PHP_SELF' => '/esqueleto/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1493125870.796
+    'REQUEST_TIME' => 1493125870
+]
+2017-04-25 10:11:14 [127.0.0.1][1][fpcaoqfgucjaebjk1jfsqta217][error][yii\web\HttpException:404] exception 'yii\base\InvalidRouteException' with message 'Unable to resolve the request "financeiro/inicio".' in /var/www/esqueleto/vendor/yiisoft/yii2/base/Module.php:460
+Stack trace:
+#0 /var/www/esqueleto/vendor/yiisoft/yii2/web/Application.php(87): yii\base\Module->runAction('financeiro/inic...', Array)
+#1 /var/www/esqueleto/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 /var/www/esqueleto/web/index.php(27): yii\base\Application->run()
+#3 {main}
+
+Next exception 'yii\web\NotFoundHttpException' with message 'Página não encontrada.' in /var/www/esqueleto/vendor/yiisoft/yii2/web/Application.php:99
+Stack trace:
+#0 /var/www/esqueleto/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 /var/www/esqueleto/web/index.php(27): yii\base\Application->run()
+#2 {main}
+2017-04-25 10:11:13 [127.0.0.1][1][fpcaoqfgucjaebjk1jfsqta217][info][application] $_COOKIE = [
+    '_identity' => '6eafb6bb09fc08f699b7e9d6777feebdb21312bd23c40d446f28de0e5f4f2db0a:2:{i:0;s:9:\"_identity\";i:1;s:15:\"[1,\"1\",2592000]\";}'
+    'PHPSESSID' => '466n20nk4u73dm70s34d7rl0c5'
+    'projeto_dev' => 'fpcaoqfgucjaebjk1jfsqta217'
+    '_csrf' => 'fb34f810a4b84ec6552ab1b3b0cb8f2527fcd2579a12c281c81438abb1afc58fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"8D1qPi_e1RWqUz9m_AUW4gR-GtMFdtzj\";}'
+    'menu-aberto' => '1'
+    '__swuid' => '1'
+    '__swto' => '1493132971'
+]
+
+$_SESSION = [
+    '__flash' => []
+    'sessao-expirada' => '/scm/web/admin/perfis-funcionalidades-acoes/admin?cod_funcionalidade=187&cod_modulo=31'
+    '__returnUrl' => '/scm/web/admin/perfis-funcionalidades-acoes/admin?cod_funcionalidade=187&cod_modulo=31'
+    '__id' => '1'
+    'parametros.filtro' => [
+        'TabParametrosSearch' => [
+            'num_ano_ref' => 2015
+        ]
+    ]
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'localhost'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:52.0) Gecko/20100101 Firefox/52.0'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.5'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_COOKIE' => '_identity=6eafb6bb09fc08f699b7e9d6777feebdb21312bd23c40d446f28de0e5f4f2db0a%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A15%3A%22%5B1%2C%221%22%2C2592000%5D%22%3B%7D; PHPSESSID=466n20nk4u73dm70s34d7rl0c5; projeto_dev=fpcaoqfgucjaebjk1jfsqta217; _csrf=fb34f810a4b84ec6552ab1b3b0cb8f2527fcd2579a12c281c81438abb1afc58fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%228D1qPi_e1RWqUz9m_AUW4gR-GtMFdtzj%22%3B%7D; menu-aberto=1; __swuid=1; __swto=1493132971'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_PRAGMA' => 'no-cache'
+    'HTTP_CACHE_CONTROL' => 'no-cache'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.18 (Ubuntu) Server at localhost Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.18 (Ubuntu)'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/var/www/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/'
+    'SERVER_ADMIN' => 'webmaster@localhost'
+    'SCRIPT_FILENAME' => '/var/www/esqueleto/web/index.php'
+    'REMOTE_PORT' => '33342'
+    'REDIRECT_URL' => '/esqueleto/web/financeiro/inicio'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/esqueleto/web/financeiro/inicio'
+    'SCRIPT_NAME' => '/esqueleto/web/index.php'
+    'PHP_SELF' => '/esqueleto/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1493125873.951
+    'REQUEST_TIME' => 1493125873
+]
+2017-04-25 10:11:33 [127.0.0.1][1][fpcaoqfgucjaebjk1jfsqta217][error][yii\web\HttpException:404] exception 'yii\base\InvalidRouteException' with message 'Unable to resolve the request "financeiro/inicio".' in /var/www/esqueleto/vendor/yiisoft/yii2/base/Module.php:460
+Stack trace:
+#0 /var/www/esqueleto/vendor/yiisoft/yii2/web/Application.php(87): yii\base\Module->runAction('financeiro/inic...', Array)
+#1 /var/www/esqueleto/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 /var/www/esqueleto/web/index.php(27): yii\base\Application->run()
+#3 {main}
+
+Next exception 'yii\web\NotFoundHttpException' with message 'Página não encontrada.' in /var/www/esqueleto/vendor/yiisoft/yii2/web/Application.php:99
+Stack trace:
+#0 /var/www/esqueleto/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 /var/www/esqueleto/web/index.php(27): yii\base\Application->run()
+#2 {main}
+2017-04-25 10:11:33 [127.0.0.1][1][fpcaoqfgucjaebjk1jfsqta217][info][application] $_COOKIE = [
+    '_identity' => '6eafb6bb09fc08f699b7e9d6777feebdb21312bd23c40d446f28de0e5f4f2db0a:2:{i:0;s:9:\"_identity\";i:1;s:15:\"[1,\"1\",2592000]\";}'
+    'PHPSESSID' => '466n20nk4u73dm70s34d7rl0c5'
+    'projeto_dev' => 'fpcaoqfgucjaebjk1jfsqta217'
+    '_csrf' => 'fb34f810a4b84ec6552ab1b3b0cb8f2527fcd2579a12c281c81438abb1afc58fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"8D1qPi_e1RWqUz9m_AUW4gR-GtMFdtzj\";}'
+    'menu-aberto' => '1'
+    '__swuid' => '1'
+    '__swto' => '1493132975'
+]
+
+$_SESSION = [
+    '__flash' => []
+    'sessao-expirada' => '/scm/web/admin/perfis-funcionalidades-acoes/admin?cod_funcionalidade=187&cod_modulo=31'
+    '__returnUrl' => '/scm/web/admin/perfis-funcionalidades-acoes/admin?cod_funcionalidade=187&cod_modulo=31'
+    '__id' => '1'
+    'parametros.filtro' => [
+        'TabParametrosSearch' => [
+            'num_ano_ref' => 2015
+        ]
+    ]
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'localhost'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:52.0) Gecko/20100101 Firefox/52.0'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.5'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_COOKIE' => '_identity=6eafb6bb09fc08f699b7e9d6777feebdb21312bd23c40d446f28de0e5f4f2db0a%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A15%3A%22%5B1%2C%221%22%2C2592000%5D%22%3B%7D; PHPSESSID=466n20nk4u73dm70s34d7rl0c5; projeto_dev=fpcaoqfgucjaebjk1jfsqta217; _csrf=fb34f810a4b84ec6552ab1b3b0cb8f2527fcd2579a12c281c81438abb1afc58fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%228D1qPi_e1RWqUz9m_AUW4gR-GtMFdtzj%22%3B%7D; menu-aberto=1; __swuid=1; __swto=1493132975'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.18 (Ubuntu) Server at localhost Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.18 (Ubuntu)'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/var/www/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/'
+    'SERVER_ADMIN' => 'webmaster@localhost'
+    'SCRIPT_FILENAME' => '/var/www/esqueleto/web/index.php'
+    'REMOTE_PORT' => '33364'
+    'REDIRECT_URL' => '/esqueleto/web/financeiro/inicio'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/esqueleto/web/financeiro/inicio'
+    'SCRIPT_NAME' => '/esqueleto/web/index.php'
+    'PHP_SELF' => '/esqueleto/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1493125893.371
+    'REQUEST_TIME' => 1493125893
+]
+2017-04-25 10:11:35 [127.0.0.1][1][fpcaoqfgucjaebjk1jfsqta217][error][yii\web\HttpException:404] exception 'yii\base\InvalidRouteException' with message 'Unable to resolve the request "financeiro/inicio".' in /var/www/esqueleto/vendor/yiisoft/yii2/base/Module.php:460
+Stack trace:
+#0 /var/www/esqueleto/vendor/yiisoft/yii2/web/Application.php(87): yii\base\Module->runAction('financeiro/inic...', Array)
+#1 /var/www/esqueleto/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 /var/www/esqueleto/web/index.php(27): yii\base\Application->run()
+#3 {main}
+
+Next exception 'yii\web\NotFoundHttpException' with message 'Página não encontrada.' in /var/www/esqueleto/vendor/yiisoft/yii2/web/Application.php:99
+Stack trace:
+#0 /var/www/esqueleto/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 /var/www/esqueleto/web/index.php(27): yii\base\Application->run()
+#2 {main}
+2017-04-25 10:11:35 [127.0.0.1][1][fpcaoqfgucjaebjk1jfsqta217][info][application] $_COOKIE = [
+    '_identity' => '6eafb6bb09fc08f699b7e9d6777feebdb21312bd23c40d446f28de0e5f4f2db0a:2:{i:0;s:9:\"_identity\";i:1;s:15:\"[1,\"1\",2592000]\";}'
+    'PHPSESSID' => '466n20nk4u73dm70s34d7rl0c5'
+    'projeto_dev' => 'fpcaoqfgucjaebjk1jfsqta217'
+    '_csrf' => 'fb34f810a4b84ec6552ab1b3b0cb8f2527fcd2579a12c281c81438abb1afc58fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"8D1qPi_e1RWqUz9m_AUW4gR-GtMFdtzj\";}'
+    'menu-aberto' => '1'
+    '__swuid' => '1'
+    '__swto' => '1493132994'
+]
+
+$_SESSION = [
+    '__flash' => []
+    'sessao-expirada' => '/scm/web/admin/perfis-funcionalidades-acoes/admin?cod_funcionalidade=187&cod_modulo=31'
+    '__returnUrl' => '/scm/web/admin/perfis-funcionalidades-acoes/admin?cod_funcionalidade=187&cod_modulo=31'
+    '__id' => '1'
+    'parametros.filtro' => [
+        'TabParametrosSearch' => [
+            'num_ano_ref' => 2015
+        ]
+    ]
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'localhost'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:52.0) Gecko/20100101 Firefox/52.0'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.5'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_COOKIE' => '_identity=6eafb6bb09fc08f699b7e9d6777feebdb21312bd23c40d446f28de0e5f4f2db0a%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A15%3A%22%5B1%2C%221%22%2C2592000%5D%22%3B%7D; PHPSESSID=466n20nk4u73dm70s34d7rl0c5; projeto_dev=fpcaoqfgucjaebjk1jfsqta217; _csrf=fb34f810a4b84ec6552ab1b3b0cb8f2527fcd2579a12c281c81438abb1afc58fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%228D1qPi_e1RWqUz9m_AUW4gR-GtMFdtzj%22%3B%7D; menu-aberto=1; __swuid=1; __swto=1493132994'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.18 (Ubuntu) Server at localhost Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.18 (Ubuntu)'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/var/www/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/'
+    'SERVER_ADMIN' => 'webmaster@localhost'
+    'SCRIPT_FILENAME' => '/var/www/esqueleto/web/index.php'
+    'REMOTE_PORT' => '33368'
+    'REDIRECT_URL' => '/esqueleto/web/financeiro/inicio'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/esqueleto/web/financeiro/inicio'
+    'SCRIPT_NAME' => '/esqueleto/web/index.php'
+    'PHP_SELF' => '/esqueleto/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1493125895.601
+    'REQUEST_TIME' => 1493125895
+]
+2017-04-25 10:11:44 [127.0.0.1][1][fpcaoqfgucjaebjk1jfsqta217][error][yii\web\HttpException:404] exception 'yii\base\InvalidRouteException' with message 'Unable to resolve the request "financeiro/inicio".' in /var/www/esqueleto/vendor/yiisoft/yii2/base/Module.php:460
+Stack trace:
+#0 /var/www/esqueleto/vendor/yiisoft/yii2/web/Application.php(87): yii\base\Module->runAction('financeiro/inic...', Array)
+#1 /var/www/esqueleto/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 /var/www/esqueleto/web/index.php(27): yii\base\Application->run()
+#3 {main}
+
+Next exception 'yii\web\NotFoundHttpException' with message 'Página não encontrada.' in /var/www/esqueleto/vendor/yiisoft/yii2/web/Application.php:99
+Stack trace:
+#0 /var/www/esqueleto/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 /var/www/esqueleto/web/index.php(27): yii\base\Application->run()
+#2 {main}
+2017-04-25 10:11:43 [127.0.0.1][1][fpcaoqfgucjaebjk1jfsqta217][info][application] $_COOKIE = [
+    '_identity' => '6eafb6bb09fc08f699b7e9d6777feebdb21312bd23c40d446f28de0e5f4f2db0a:2:{i:0;s:9:\"_identity\";i:1;s:15:\"[1,\"1\",2592000]\";}'
+    'PHPSESSID' => '466n20nk4u73dm70s34d7rl0c5'
+    'projeto_dev' => 'fpcaoqfgucjaebjk1jfsqta217'
+    '_csrf' => 'fb34f810a4b84ec6552ab1b3b0cb8f2527fcd2579a12c281c81438abb1afc58fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"8D1qPi_e1RWqUz9m_AUW4gR-GtMFdtzj\";}'
+    'menu-aberto' => '1'
+    '__swuid' => '1'
+    '__swto' => '1493132996'
+]
+
+$_SESSION = [
+    '__flash' => []
+    'sessao-expirada' => '/scm/web/admin/perfis-funcionalidades-acoes/admin?cod_funcionalidade=187&cod_modulo=31'
+    '__returnUrl' => '/scm/web/admin/perfis-funcionalidades-acoes/admin?cod_funcionalidade=187&cod_modulo=31'
+    '__id' => '1'
+    'parametros.filtro' => [
+        'TabParametrosSearch' => [
+            'num_ano_ref' => 2015
+        ]
+    ]
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'localhost'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:52.0) Gecko/20100101 Firefox/52.0'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.5'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_COOKIE' => '_identity=6eafb6bb09fc08f699b7e9d6777feebdb21312bd23c40d446f28de0e5f4f2db0a%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A15%3A%22%5B1%2C%221%22%2C2592000%5D%22%3B%7D; PHPSESSID=466n20nk4u73dm70s34d7rl0c5; projeto_dev=fpcaoqfgucjaebjk1jfsqta217; _csrf=fb34f810a4b84ec6552ab1b3b0cb8f2527fcd2579a12c281c81438abb1afc58fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%228D1qPi_e1RWqUz9m_AUW4gR-GtMFdtzj%22%3B%7D; menu-aberto=1; __swuid=1; __swto=1493132996'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.18 (Ubuntu) Server at localhost Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.18 (Ubuntu)'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/var/www/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/'
+    'SERVER_ADMIN' => 'webmaster@localhost'
+    'SCRIPT_FILENAME' => '/var/www/esqueleto/web/index.php'
+    'REMOTE_PORT' => '33380'
+    'REDIRECT_URL' => '/esqueleto/web/financeiro/inicio'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/esqueleto/web/financeiro/inicio'
+    'SCRIPT_NAME' => '/esqueleto/web/index.php'
+    'PHP_SELF' => '/esqueleto/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1493125903.909
+    'REQUEST_TIME' => 1493125903
+]
+2017-04-25 10:13:43 [127.0.0.1][1][fpcaoqfgucjaebjk1jfsqta217][error][yii\web\HttpException:404] exception 'yii\base\InvalidRouteException' with message 'Unable to resolve the request "financeiro/inicio".' in /var/www/esqueleto/vendor/yiisoft/yii2/base/Module.php:460
+Stack trace:
+#0 /var/www/esqueleto/vendor/yiisoft/yii2/web/Application.php(87): yii\base\Module->runAction('financeiro/inic...', Array)
+#1 /var/www/esqueleto/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 /var/www/esqueleto/web/index.php(27): yii\base\Application->run()
+#3 {main}
+
+Next exception 'yii\web\NotFoundHttpException' with message 'Página não encontrada.' in /var/www/esqueleto/vendor/yiisoft/yii2/web/Application.php:99
+Stack trace:
+#0 /var/www/esqueleto/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 /var/www/esqueleto/web/index.php(27): yii\base\Application->run()
+#2 {main}
+2017-04-25 10:13:43 [127.0.0.1][1][fpcaoqfgucjaebjk1jfsqta217][info][application] $_COOKIE = [
+    '_identity' => '6eafb6bb09fc08f699b7e9d6777feebdb21312bd23c40d446f28de0e5f4f2db0a:2:{i:0;s:9:\"_identity\";i:1;s:15:\"[1,\"1\",2592000]\";}'
+    'PHPSESSID' => '466n20nk4u73dm70s34d7rl0c5'
+    'projeto_dev' => 'fpcaoqfgucjaebjk1jfsqta217'
+    '_csrf' => 'fb34f810a4b84ec6552ab1b3b0cb8f2527fcd2579a12c281c81438abb1afc58fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"8D1qPi_e1RWqUz9m_AUW4gR-GtMFdtzj\";}'
+    'menu-aberto' => '1'
+    '__swuid' => '1'
+    '__swto' => '1493133004'
+]
+
+$_SESSION = [
+    '__flash' => []
+    'sessao-expirada' => '/scm/web/admin/perfis-funcionalidades-acoes/admin?cod_funcionalidade=187&cod_modulo=31'
+    '__returnUrl' => '/scm/web/admin/perfis-funcionalidades-acoes/admin?cod_funcionalidade=187&cod_modulo=31'
+    '__id' => '1'
+    'parametros.filtro' => [
+        'TabParametrosSearch' => [
+            'num_ano_ref' => 2015
+        ]
+    ]
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'localhost'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:52.0) Gecko/20100101 Firefox/52.0'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.5'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_COOKIE' => '_identity=6eafb6bb09fc08f699b7e9d6777feebdb21312bd23c40d446f28de0e5f4f2db0a%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A15%3A%22%5B1%2C%221%22%2C2592000%5D%22%3B%7D; PHPSESSID=466n20nk4u73dm70s34d7rl0c5; projeto_dev=fpcaoqfgucjaebjk1jfsqta217; _csrf=fb34f810a4b84ec6552ab1b3b0cb8f2527fcd2579a12c281c81438abb1afc58fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%228D1qPi_e1RWqUz9m_AUW4gR-GtMFdtzj%22%3B%7D; menu-aberto=1; __swuid=1; __swto=1493133004'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'HTTP_CACHE_CONTROL' => 'max-age=0'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.18 (Ubuntu) Server at localhost Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.18 (Ubuntu)'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/var/www/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/'
+    'SERVER_ADMIN' => 'webmaster@localhost'
+    'SCRIPT_FILENAME' => '/var/www/esqueleto/web/index.php'
+    'REMOTE_PORT' => '33404'
+    'REDIRECT_URL' => '/esqueleto/web/financeiro/inicio'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/esqueleto/web/financeiro/inicio'
+    'SCRIPT_NAME' => '/esqueleto/web/index.php'
+    'PHP_SELF' => '/esqueleto/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1493126023.645
+    'REQUEST_TIME' => 1493126023
+]
+2017-04-25 10:14:02 [127.0.0.1][1][fpcaoqfgucjaebjk1jfsqta217][error][yii\web\HttpException:404] exception 'yii\base\InvalidRouteException' with message 'Unable to resolve the request "financeiro".' in /var/www/esqueleto/vendor/yiisoft/yii2/base/Module.php:460
+Stack trace:
+#0 /var/www/esqueleto/vendor/yiisoft/yii2/web/Application.php(87): yii\base\Module->runAction('financeiro', Array)
+#1 /var/www/esqueleto/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 /var/www/esqueleto/web/index.php(27): yii\base\Application->run()
+#3 {main}
+
+Next exception 'yii\web\NotFoundHttpException' with message 'Página não encontrada.' in /var/www/esqueleto/vendor/yiisoft/yii2/web/Application.php:99
+Stack trace:
+#0 /var/www/esqueleto/vendor/yiisoft/yii2/base/Application.php(375): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 /var/www/esqueleto/web/index.php(27): yii\base\Application->run()
+#2 {main}
+2017-04-25 10:14:02 [127.0.0.1][1][fpcaoqfgucjaebjk1jfsqta217][info][application] $_COOKIE = [
+    '_identity' => '6eafb6bb09fc08f699b7e9d6777feebdb21312bd23c40d446f28de0e5f4f2db0a:2:{i:0;s:9:\"_identity\";i:1;s:15:\"[1,\"1\",2592000]\";}'
+    'PHPSESSID' => '466n20nk4u73dm70s34d7rl0c5'
+    'projeto_dev' => 'fpcaoqfgucjaebjk1jfsqta217'
+    '_csrf' => 'fb34f810a4b84ec6552ab1b3b0cb8f2527fcd2579a12c281c81438abb1afc58fa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"8D1qPi_e1RWqUz9m_AUW4gR-GtMFdtzj\";}'
+    'menu-aberto' => '1'
+    '__swuid' => '1'
+    '__swto' => '1493133138'
+]
+
+$_SESSION = [
+    '__flash' => []
+    'sessao-expirada' => '/scm/web/admin/perfis-funcionalidades-acoes/admin?cod_funcionalidade=187&cod_modulo=31'
+    '__returnUrl' => '/scm/web/admin/perfis-funcionalidades-acoes/admin?cod_funcionalidade=187&cod_modulo=31'
+    '__id' => '1'
+    'parametros.filtro' => [
+        'TabParametrosSearch' => [
+            'num_ano_ref' => 2015
+        ]
+    ]
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'localhost'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:52.0) Gecko/20100101 Firefox/52.0'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_ACCEPT_LANGUAGE' => 'en-US,en;q=0.5'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_REFERER' => 'http://localhost/esqueleto/web/home'
+    'HTTP_COOKIE' => '_identity=6eafb6bb09fc08f699b7e9d6777feebdb21312bd23c40d446f28de0e5f4f2db0a%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A15%3A%22%5B1%2C%221%22%2C2592000%5D%22%3B%7D; PHPSESSID=466n20nk4u73dm70s34d7rl0c5; projeto_dev=fpcaoqfgucjaebjk1jfsqta217; _csrf=fb34f810a4b84ec6552ab1b3b0cb8f2527fcd2579a12c281c81438abb1afc58fa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%228D1qPi_e1RWqUz9m_AUW4gR-GtMFdtzj%22%3B%7D; menu-aberto=1; __swuid=1; __swto=1493133138'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.18 (Ubuntu) Server at localhost Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.18 (Ubuntu)'
+    'SERVER_NAME' => 'localhost'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/var/www/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/'
+    'SERVER_ADMIN' => 'webmaster@localhost'
+    'SCRIPT_FILENAME' => '/var/www/esqueleto/web/index.php'
+    'REMOTE_PORT' => '33428'
+    'REDIRECT_URL' => '/esqueleto/web/financeiro'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/esqueleto/web/financeiro'
+    'SCRIPT_NAME' => '/esqueleto/web/index.php'
+    'PHP_SELF' => '/esqueleto/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1493126042.657
+    'REQUEST_TIME' => 1493126042
+]
