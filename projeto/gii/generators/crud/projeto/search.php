@@ -87,15 +87,9 @@ class <?= $searchModelClass ?> extends <?= isset($modelAlias) ? $modelAlias : $m
 
         $this->load($params);
 
-        if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
-            return $dataProvider;
-        }
-
         <?= implode("\n        ", $searchConditions) ?>
 
-		$query->andWhere($this->tableName().'.dte_exclusao IS NULL');
+		$query->andWhere($this->tableName().'.dt_exclusao IS NULL');
 		
         return $dataProvider;
     }

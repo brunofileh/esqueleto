@@ -24,13 +24,12 @@ $infoModulo = $this->context->module->info;
 
 ?>
 
-<?= "<?php " ?> $this->beginBlock('conteudo-principal') ?>
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelTituloClass)) ?>-index box box-default">
 
 	<div class="box-header with-border">
 		<h3 class="box-title">Consulta</h3>
 		<div class="box-tools pull-right">
-			 <?= "<?= " ?>Html::a('<i class="glyphicon glyphicon-plus"></i> Incluir novo registro', ['create'], ['class' => 'btn btn-success btn-sm']) ?>
+			 <?= "<?= " ?>Html::a('<i class="glyphicon glyphicon-plus"></i> Incluir novo registro', ['admin'], ['class' => 'btn btn-success btn-sm']) ?>
 		</div>
 	</div>
 
@@ -89,10 +88,9 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
 	<div class="box-footer">
 		<h3 class="box-title"></h3>
 		<div class="box-tools pull-right">
-			 <?= "<?= " ?>Html::a('<i class="glyphicon glyphicon-plus"></i> Incluir novo registro', ['create'], ['class' => 'btn btn-success btn-sm']) ?>
+			 <?= "<?= " ?>Html::a('<i class="glyphicon glyphicon-plus"></i> Incluir novo registro', ['admin'], ['class' => 'btn btn-success btn-sm']) ?>
 		</div>
 	</div>
 </div>
 
 
-<?= "<?php " ?> $this->endBlock() ?>

@@ -10,9 +10,7 @@ var Projeto = Class.extend({
         }
         return $(this._s[idSeletor]);
     },
-    init: function () {
-        this.log('[projeto.init] Inicializando aplicação');
-    },
+   
     config: function () {
         //this._configToastr();
 		this.stickyMenu();
@@ -55,7 +53,7 @@ var Projeto = Class.extend({
         });
     },
     _configToastr: function () {
-        this.log('[projeto.config] Configurando o toastr js');
+       
         toastr = toastr || {};
         toastr.options = {
             "closeButton": true,
@@ -76,7 +74,7 @@ var Projeto = Class.extend({
         }
     },
     _configChosen: function () {
-        this.log('[projeto.config] Configurando o Chosen combobox');
+       
         $('.chosen-select').each(function (k, v) {
             var $chosen = $(v);
             $chosen.chosen({
@@ -318,10 +316,7 @@ Projeto.prototype.ajax = new (Projeto.extend({
 	
 	intContadorReq: 0, // contador de requisições ajax
 
-	init: function () {
-		this.log('[projeto.ajax] ajax pronto para uso');
-	},
-	
+		
 	defaultBlockUI: function(){
 		$.blockUI();
 	},

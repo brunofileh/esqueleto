@@ -156,7 +156,7 @@ use kartik\widgets\Typeahead;
 							<li class="user-footer">
 								<div class="row">
 									<div class="col-xs-6 text-center">
-										<?= Html::a('Minha conta', Url::toRoute('/drenagem/minha-conta/view'), ['class' => 'btn btn-flat']) ?>
+										<?= Html::a('Minha conta', Url::toRoute('/usuarios/view'), ['class' => 'btn btn-flat']) ?>
 									</div>
 									<div class="col-xs-6 text-center">
 										<?= Html::a('Sair', Url::toRoute('/sair'), [
@@ -178,17 +178,7 @@ use kartik\widgets\Typeahead;
 							</li>
 						</ul>
 					</li>
-					<?php 
-						if($this->context->module->id=='drenagem') {
-							echo $this->render('_contato');
-						}
-					?>
-					<li>
-						<p class="navbar-text" style="color:#fff;">
-							<i class="fa fa-clock-o"> </i>
-							<span id="session-timeout">00:00</span>
-						</p>
-					</li>
+				
 				<?php else: ?>
 					<li><?= Html::a('Entrar', Url::toRoute('/entrar')) ?></li>
 				<?php endif; ?>

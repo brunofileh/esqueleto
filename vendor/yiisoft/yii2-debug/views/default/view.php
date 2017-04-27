@@ -34,8 +34,8 @@ $this->title = 'Yii Debugger';
                 <div class="list-group">
                     <?php
                     foreach ($panels as $id => $panel) {
-                        $anoRefAtual = '<i class="glyphicon glyphicon-chevron-right"></i>' . Html::encode($panel->getName());
-                        echo Html::a($anoRefAtual, ['view', 'tag' => $tag, 'panel' => $id], [
+                        $label = '<i class="glyphicon glyphicon-chevron-right"></i>' . Html::encode($panel->getName());
+                        echo Html::a($label, ['view', 'tag' => $tag, 'panel' => $id], [
                             'class' => $panel === $activePanel ? 'list-group-item active' : 'list-group-item',
                         ]);
                     }
@@ -61,13 +61,13 @@ $this->title = 'Yii Debugger';
                         $count = 0;
                         $items = [];
                         foreach ($manifest as $meta) {
-                            $anoRefAtual = ($meta['tag'] == $tag ? Html::tag('strong', '&#9654;&nbsp;'.$meta['tag']) : $meta['tag'])
+                            $label = ($meta['tag'] == $tag ? Html::tag('strong', '&#9654;&nbsp;'.$meta['tag']) : $meta['tag'])
                                 . ': ' . $meta['method'] . ' ' . $meta['url'] . ($meta['ajax'] ? ' (AJAX)' : '')
                                 . ', ' . date('Y-m-d h:i:s a', $meta['time'])
                                 . ', ' . $meta['ip'];
                             $url = ['view', 'tag' => $meta['tag'], 'panel' => $activePanel->id];
                             $items[] = [
-                                'label' => $anoRefAtual,
+                                'label' => $label,
                                 'url' => $url,
                             ];
                             if (++$count >= 10) {

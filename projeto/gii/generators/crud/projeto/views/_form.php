@@ -35,16 +35,20 @@ use yii\helpers\ArrayHelper;
 		<h3 class="box-title"></h3>
 		<div class="box-tools">
 			<?= "<?= " ?>Html::submitButton('<i class="glyphicon glyphicon-ok"></i> '. ($model->isNewRecord ? 'Incluir registro' : 'Alterar registro'), ['class' => ($model->isNewRecord ? 'btn btn-success btn-sm' : 'btn btn-primary btn-sm')]) ?>
-			<?= "<?= " ?>Html::a('<i class="glyphicon glyphicon-arrow-left"></i> Cancelar',  Url::toRoute($infoModulo['menu-item']['txt_url']), ['class' => 'btn btn-default btn-sm']) ?>
+			<?= "<?= " ?>Html::a('<i class="glyphicon glyphicon-arrow-left"></i> Cancelar',  Yii::$app->request->referrer, ['class' => 'btn btn-default btn-sm']) ?>
 		</div>
     </div>
 	
 	<div class="box-body">
 <?php foreach ($generator->getColumnNames() as $attribute) {
-	
+	 
     if (in_array($attribute, $safeAttributes) && ! in_array($attribute, $generator->controlarRegistro)) {
+		 echo "    <div class='row'>\n<div class='col-lg-6'>\n";
+		 
         echo "    <?= " . $generator->generateActiveField($attribute) . " ?>\n";
+		echo "    </div>\n</div>\n";
     }
+	 
 } ?>
     </div>
 
@@ -52,7 +56,7 @@ use yii\helpers\ArrayHelper;
 		<h3 class="box-title"></h3>
 		<div class="box-tools pull-right">
 			<?= "<?= " ?>Html::submitButton('<i class="glyphicon glyphicon-ok"></i> '. ($model->isNewRecord ? 'Incluir registro' : 'Alterar registro'), ['class' => ($model->isNewRecord ? 'btn btn-success btn-sm' : 'btn btn-primary btn-sm')]) ?>
-			<?= "<?= " ?>Html::a('<i class="glyphicon glyphicon-arrow-left"></i> Cancelar',  Url::toRoute($infoModulo['menu-item']['txt_url']), ['class' => 'btn btn-default btn-sm']) ?>
+			<?= "<?= " ?>Html::a('<i class="glyphicon glyphicon-arrow-left"></i> Cancelar',  Yii::$app->request->referrer, ['class' => 'btn btn-default btn-sm']) ?>
 		</div>
     </div>
     <?= "<?php " ?>ActiveForm::end(); ?>

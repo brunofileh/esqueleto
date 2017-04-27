@@ -21,12 +21,10 @@ $infoModulo = $this->context->module->info;
 ?>
 
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelTituloClass)) ?>-create">
-<?= "<?php " ?> $this->beginBlock('conteudo-principal') ?>
 
     <?= "<?= " ?>$this->render('_form', [
         'model' => $model,
         'infoModulo' => $infoModulo,
     ]) ?>
 	
-<?= "<?php " ?> $this->endBlock() ?>
 </div>

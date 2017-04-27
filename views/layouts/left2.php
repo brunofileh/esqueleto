@@ -26,12 +26,12 @@ use yii\helpers\Url;
 			<?= dmstr\widgets\Menu::widget([
 				'options' => ['class' => 'sidebar-menu'],
 				'items' => [
-					['label' => 'Início', 'icon' => 'glyphicon glyphicon-home', 'url' => [ '/home']],
-					['label' => 'Minha Conta', 'icon' => 'glyphicon glyphicon-user', 'url' => ['/usuarios/view']],
-					['label' => 'Alterar senha', 'icon' => 'glyphicon glyphicon-exclamation-sign', 'url' => ['/alterar-senha']],
+					['label' => 'Início', 'icon' => ' glyphicon glyphicon-home', 'url' => [ '/home']],
+					['label' => 'Minha Conta', 'icon' => ' glyphicon glyphicon-user', 'url' => ['/usuarios/view']],
+					['label' => 'Alterar senha', 'icon' => ' glyphicon glyphicon-exclamation-sign', 'url' => ['usuarios/alterar-senha']],
 					[
 						'label'	=> 'Sair',
-						'icon' => 'glyphicon glyphicon-off',
+						'icon' => ' glyphicon glyphicon-off',
 						'url' => Url::toRoute('/sair'),
 						'template' => '<a href="{url}" data-method="post">{icon}{label}</a>'
 					]],

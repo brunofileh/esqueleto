@@ -120,6 +120,40 @@ class UsuariosController extends Controller
 			] );
 
 	}
+	
+	
+		public function actionAlterarSenha()
+	{
+		$this->titulo	 = 'Alterar senha';
+		$this->subTitulo = null;
+		$this->layout	 = null;
+
+		$model				 = $this->findModel(Yii::$app->user->identity->cod_usuario);
+		$model->txt_senha	 = null;
+		$model->scenario	 = TabUsuariosSearch::SCENARIO_ALTERAR_SENHA;
+
+		if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
+			$transaction = $this->db->beginTransaction();
+			try {
+
+				if ($model->save()) {
+					$this->session->setFlash('success', 'Senha alterada com sucesso.');
+					$model->txt_senha_atual		 = null;
+					$model->txt_senha			 = null;
+					$model->txt_senha_confirma	 = null;
+					$transaction->commit();
+				}
+			} catch (Exception $e) {
+				$transaction->rollBack();
+				throw $e;
+			}
+		}
+
+		return $this->render('alterar_senha', [
+			'model' => $model,
+		]);
+	}
 
 	/**
 	 * Finds the TabUsuarios model based on its primary key value.

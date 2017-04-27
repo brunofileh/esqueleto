@@ -315,6 +315,36 @@ class Generator extends \yii\gii\Generator
 			return "\$form->field(\$model, '$attribute')->checkbox()";
 		} elseif ($column->type === 'text') {
 			return "\$form->field(\$model, '$attribute')->textarea(['rows' => 6])";
+		} elseif ($column->type === 'decimal') {
+			$scale = $column->scale;
+			return "\$form->field(\$model, '$attribute')->textInput()->widget(\kartik\money\MaskMoney::className(), [
+																			'pluginOptions' => [
+																			'thousands' => '.',
+																			'decimal' => ',',
+																			'precision' => $scale,
+																			'allowZero' => false,]
+																			]);";
+		} elseif ($column->type === 'integer') {
+			
+			return "\$form->field(\$model, '$attribute')->textInput()->widget(\kartik\money\MaskMoney::className(), [
+																			'pluginOptions' => [
+																			'thousands' => '.',
+																			'decimal' => ',',
+																			'precision' => 0,
+																			'allowZero' => false,]
+																			]);";
+		}
+		elseif ($column->type === 'date') {
+			 
+			return	"\$form->field(\$model, '$attribute')->widget(
+						\dosamigos\datepicker\DatePicker::className(), [
+						'language' => 'pt-BR',
+						'clientOptions' => [
+						'autoclose' => true,
+						'format' => 'dd/mm/yyyy'
+					]
+				]);";
+        
 		} else {
 			if (preg_match('/^(password|pass|passwd|passcode)$/i', $column->name)) {
 				$input = 'passwordInput';

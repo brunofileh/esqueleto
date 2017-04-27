@@ -22,7 +22,6 @@ $infoModulo = $this->context->module->info;
 
 ?>
 
-<?= "<?php " ?> $this->beginBlock('conteudo-principal') ?>
 <div class="<?= Inflector::camel2id(StringHelper::basename($generator->modelClass)) ?>-view box box-default">
 
     <div class="box-header with-border">
@@ -36,7 +35,7 @@ $infoModulo = $this->context->module->info;
                 'method' => 'post',
             ],
         ]) ?>
-        <?= "<?= " ?>Html::a('<i class="glyphicon glyphicon-arrow-left"></i> Voltar', Url::toRoute($infoModulo['menu-item']['txt_url']), ['class' => 'btn btn-default btn-sm']) ?>
+        <?= "<?= " ?>Html::a('<i class="glyphicon glyphicon-arrow-left"></i> Voltar', Yii::$app->request->referrer, ['class' => 'btn btn-default btn-sm']) ?>
     	</div>
     </div>    
 	
@@ -70,8 +69,7 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
                 'method' => 'post',
             ],
         ]) ?>
-        <?= "<?= " ?>Html::a('<i class="glyphicon glyphicon-arrow-left"></i> Voltar', Url::toRoute($infoModulo['menu-item']['txt_url']), ['class' => 'btn btn-default btn-sm']) ?>
+        <?= "<?= " ?>Html::a('<i class="glyphicon glyphicon-arrow-left"></i> Voltar', Yii::$app->request->referrer, ['class' => 'btn btn-default btn-sm']) ?>
 		</div>
     </div>
 </div>
-<?= "<?php " ?> $this->endBlock() ?>

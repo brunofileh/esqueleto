@@ -12,9 +12,7 @@ $infoModulo = $this->context->module->info;
 ?>
 
 <div class="perfis-funcionalidades-acoes-admin">
-<?php  $this->beginBlock('conteudo-principal') ?>
  
     <?= $this->render('_form', compact( 'model', 'listaAcoes', 'listaPerfis', 'infoModulo', 'listaAcao', 'cod_modulo')  ) ?>
 	
-<?php  $this->endBlock() ?>
 </div>

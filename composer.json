@@ -31,8 +31,9 @@
         "kartik-v/yii2-mpdf": "dev-master",
         "phing/phing": "^2.13",
 	"cyneek/yii2-widget-upload-crop": "dev-master",
+         "2amigos/yii2-date-picker-widget" : "~1.0",
 	"2amigos/yii2-chartjs-widget" : "~2.0",
-        "kartik-v/yii2-export": "@dev",
+        "kartik-v/yii2-export": "~1.2",
         "2amigos/yii2-ckeditor-widget" : "2.0",
         "nterms/yii2-pagesize-widget": "*",
         "kartik-v/yii2-widgets": "dev-master",
@@ -45,7 +46,7 @@
         "fxp/composer-asset-plugin": "~1.1.1",
         "yiibr/yii2-br-validator": "*",
         "mg-code/yii2-session-timeout-warning": "@dev",
-        "phpoffice/phpexcel": "dev-master"	
+        "phpoffice/phpexcel": "~1.8"	
 		
     },
     "require-dev": {

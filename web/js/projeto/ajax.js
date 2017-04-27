@@ -5,10 +5,7 @@ Projeto.prototype.ajax = new (Projeto.extend({
 	
 	intContadorReq: 0, // contador de requisições ajax
 
-	init: function () {
-		this.log('[projeto.ajax] ajax pronto para uso');
-	},
-	
+		
 	defaultBlockUI: function(){
 		$.blockUI();
 	},

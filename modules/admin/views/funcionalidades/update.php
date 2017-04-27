@@ -12,7 +12,6 @@ $infoModulo = $this->context->module->info;
 ?>
 
 <div class="tab-funcionalidades-update">
-<?php  $this->beginBlock('conteudo-principal') ?>
     <?= $this->render('_form', [
         'model' => $model,
 		'modulo' => $modulo,
@@ -21,5 +20,4 @@ $infoModulo = $this->context->module->info;
 		'listaPerfis' => $listaPerfis,
 		'listaMenus' => $listaMenus,		
     ]) ?>
-<?php  $this->endBlock() ?>
 </div>

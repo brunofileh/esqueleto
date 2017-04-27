@@ -7,7 +7,6 @@ use yii\base\BootstrapInterface;
 use yii\base\Event;
 use yii\base\Object;
 use yii\web\Application;
-use app\models\VisAtributosValores;
 
 /**
  * @link https://github.com/mg-code/yii2-session-timeout-warning
@@ -24,15 +23,9 @@ class SessionWarningBootstrap extends Object implements BootstrapInterface
     /** @inheritdoc */
     public function bootstrap($app)
     {
-		$arrCodUsr = explode('|', VisAtributosValores::getDescrOpcao(
-			VisAtributosValores::getTupla('cod-usuario-problema-javascript','cod-usuario'))[0]
-		);
-		
-		if (in_array($app->user->id, $arrCodUsr)) {
-			return;
-		}
-		
-        $app->on(Application::EVENT_BEFORE_ACTION, [$this, 'setTimeoutCookie']);
+        if(!$this->getIsPjaxRequest()) {
+            $app->on(Application::EVENT_AFTER_REQUEST, [$this, 'setTimeoutCookie']);
+        }
         if ($this->initMessages) {
             $app = \Yii::$app->i18n;
             if (!array_key_exists('mgcode/sessionWarning', $app->translations)) {
@@ -108,5 +101,14 @@ class SessionWarningBootstrap extends Object implements BootstrapInterface
         }
 
         return true;
+    }
+
+    /**
+     * @return boolean whether the current request requires pjax response
+     */
+    protected function getIsPjaxRequest()
+    {
+        $headers = Yii::$app->getRequest()->getHeaders();
+        return $headers->get('X-Pjax');
     }
 }

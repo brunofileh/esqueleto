@@ -56,6 +56,7 @@ class ComposerStaticInit56e6e849cff54d81deecf3642bdd19b2
             'kartik\\tabs\\' => 12,
             'kartik\\switchinput\\' => 19,
             'kartik\\spinner\\' => 15,
+            'kartik\\sortable\\' => 16,
             'kartik\\sidenav\\' => 15,
             'kartik\\select2\\' => 15,
             'kartik\\rating\\' => 14,
@@ -70,6 +71,7 @@ class ComposerStaticInit56e6e849cff54d81deecf3642bdd19b2
             'kartik\\form\\' => 12,
             'kartik\\file\\' => 12,
             'kartik\\export\\' => 14,
+            'kartik\\dynagrid\\' => 16,
             'kartik\\dialog\\' => 14,
             'kartik\\depdrop\\' => 15,
             'kartik\\datetime\\' => 16,
@@ -88,6 +90,7 @@ class ComposerStaticInit56e6e849cff54d81deecf3642bdd19b2
         array (
             'dosamigos\\gallery\\' => 18,
             'dosamigos\\fileupload\\' => 21,
+            'dosamigos\\datepicker\\' => 21,
             'dosamigos\\ckeditor\\' => 19,
             'dosamigos\\chartjs\\' => 18,
             'dmstr\\' => 6,
@@ -108,6 +111,7 @@ class ComposerStaticInit56e6e849cff54d81deecf3642bdd19b2
             'Symfony\\Component\\Finder\\' => 25,
             'Symfony\\Component\\EventDispatcher\\' => 34,
             'Symfony\\Component\\DomCrawler\\' => 29,
+            'Symfony\\Component\\Debug\\' => 24,
             'Symfony\\Component\\CssSelector\\' => 30,
             'Symfony\\Component\\Console\\' => 26,
             'Symfony\\Component\\BrowserKit\\' => 29,
@@ -115,6 +119,10 @@ class ComposerStaticInit56e6e849cff54d81deecf3642bdd19b2
         'R' => 
         array (
             'React\\Promise\\' => 14,
+        ),
+        'P' => 
+        array (
+            'Psr\\Log\\' => 8,
         ),
         'G' => 
         array (
@@ -233,6 +241,10 @@ class ComposerStaticInit56e6e849cff54d81deecf3642bdd19b2
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-spinner',
         ),
+        'kartik\\sortable\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-sortable',
+        ),
         'kartik\\sidenav\\' => 
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-sidenav',
@@ -289,6 +301,10 @@ class ComposerStaticInit56e6e849cff54d81deecf3642bdd19b2
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-export',
         ),
+        'kartik\\dynagrid\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-dynagrid',
+        ),
         'kartik\\dialog\\' => 
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-dialog',
@@ -337,6 +353,10 @@ class ComposerStaticInit56e6e849cff54d81deecf3642bdd19b2
         array (
             0 => __DIR__ . '/..' . '/2amigos/yii2-file-upload-widget/src',
         ),
+        'dosamigos\\datepicker\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/2amigos/yii2-date-picker-widget/src',
+        ),
         'dosamigos\\ckeditor\\' => 
         array (
             0 => __DIR__ . '/..' . '/2amigos/yii2-ckeditor-widget/src',
@@ -381,6 +401,10 @@ class ComposerStaticInit56e6e849cff54d81deecf3642bdd19b2
         array (
             0 => __DIR__ . '/..' . '/symfony/dom-crawler',
         ),
+        'Symfony\\Component\\Debug\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/debug',
+        ),
         'Symfony\\Component\\CssSelector\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/css-selector',
@@ -396,6 +420,10 @@ class ComposerStaticInit56e6e849cff54d81deecf3642bdd19b2
         'React\\Promise\\' => 
         array (
             0 => __DIR__ . '/..' . '/react/promise/src',
+        ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
         ),
         'GuzzleHttp\\Stream\\' => 
         array (
@@ -1152,6 +1180,7 @@ class ComposerStaticInit56e6e849cff54d81deecf3642bdd19b2
         'PHP_Token_NEW' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_NS_C' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_NS_SEPARATOR' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
+        'PHP_Token_NULLSAFE_OBJECT_OPERATOR' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_NUM_STRING' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_OBJECT_CAST' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_OBJECT_OPERATOR' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
@@ -1189,6 +1218,7 @@ class ComposerStaticInit56e6e849cff54d81deecf3642bdd19b2
         'PHP_Token_STRING' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_STRING_CAST' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_STRING_VARNAME' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
+        'PHP_Token_SUPER' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_SWITCH' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_Stream' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token/Stream.php',
         'PHP_Token_Stream_CachingFactory' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token/Stream/CachingFactory.php',
@@ -1203,6 +1233,7 @@ class ComposerStaticInit56e6e849cff54d81deecf3642bdd19b2
         'PHP_Token_UNSET' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_UNSET_CAST' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_USE' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
+        'PHP_Token_USE_FUNCTION' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_VAR' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_VARIABLE' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_WHERE' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',

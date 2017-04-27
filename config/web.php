@@ -26,6 +26,7 @@ $config = [
 	'modules'	 => [
 		// projeto/admin - Módulo de Administração do sistema
 		'admin'	 => ['class' => 'app\modules\admin\Module'],
+		'financeiro'	 => ['class' => 'app\modules\financeiro\Module'],
 		// projeto/gestao - Módulo de Gestão Municipal
 		// Grid View
 		'gridview' => ['class' => 'kartik\grid\Module'],
@@ -76,7 +77,7 @@ $config = [
 				'sair' => 'admin/login/logout',
 				'register' => 'admin/login/register',
 				'recuperar-senha' => 'admin/login/recuperar-senha',
-				'alterar-senha' => 'drenagem/minha-conta/update',
+				//'alterar-senha' => 'drenagem/minha-conta/update',
 			]
 		],
 		'assetManager' => [
@@ -214,7 +215,7 @@ if (YII_ENV == 'dev') {
 		'generators' => [
 			'model'		 => [
 				'class'		 => 'projeto\gii\generators\model\Generator',
-				'templates'	 => ['projeto' => '@app/projeto/gii/generators/model/projeto', 'projeto_coleta' => '@app/projeto/gii/generators/model/projeto_coleta']
+				'templates'	 => ['projeto' => '@app/projeto/gii/generators/model/projeto']
 			],
 			'module'	 => [
 				'class'		 => 'projeto\gii\generators\module\Generator',
@@ -226,7 +227,7 @@ if (YII_ENV == 'dev') {
 			],
 			'crud'		 => [
 				'class'		 => 'projeto\gii\generators\crud\Generator',
-				'templates'	 => ['projeto-crud' => '@app/projeto/gii/generators/crud/projeto', 'projeto_coleta' => '@app/projeto/gii/generators/crud/projeto_coleta']
+				'templates'	 => ['projeto-crud' => '@app/projeto/gii/generators/crud/projeto']
 			]
 		]
 	];

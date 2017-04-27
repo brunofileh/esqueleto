@@ -8,17 +8,17 @@ use yii\helpers\Url;
 /** @var array|string $logoutUrl */
 ?>
 
-    <div id="session-warning-modal" data-backdrop="false" data-keyboard="false" class="modal fade" tabindex="-1" role="dialog" data-warn-before="<?= $warnBefore; ?>" data-user-id="<?= $userId; ?>" data-extend-url="<?= Url::to($extendUrl); ?>">
-        <div class="modal-dialog modal-md">
+    <div id="session-warning-modal" class="modal fade" tabindex="-1" role="dialog" data-warn-before="<?= $warnBefore; ?>" data-user-id="<?= $userId; ?>" data-extend-url="<?= Url::to($extendUrl); ?>">
+        <div class="modal-dialog modal-sm">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title" id="exampleModalLabel"><i class="fa fa-hourglass-half"> </i> Alerta de inatividade</h3>
-                </div>
                 <div class="modal-body">
-                    <h4 class="text-center"><span class="message"></span></h4>
+                    <div class="message"></div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success continue"><i class="fa fa-refresh"> </i> Revalidar sessão</button>
+                    <?php if ($logoutUrl): ?>
+                        <a href="<?= Url::to($logoutUrl) ?>" class="btn btn-default"><?= Yii::t('mgcode/sessionWarning', 'Logout') ?></a>
+                    <?php endif; ?>
+                    <button type="button" class="btn btn-success continue"><?= Yii::t('mgcode/sessionWarning', 'Continue') ?></button>
                 </div>
             </div>
         </div>

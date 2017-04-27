@@ -9,7 +9,6 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 
 ?>
-<?php $this->beginBlock('conteudo-principal') ?>
 <div class="tab-modulos-form box box-default">
 
     <?php $form = ActiveForm::begin(); ?>
@@ -39,4 +38,3 @@ use yii\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 	
 </div>
-<?php $this->endBlock() ?>

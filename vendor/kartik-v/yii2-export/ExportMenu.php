@@ -3,40 +3,42 @@
 /**
  * @package   yii2-export
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2015 - 2016
- * @version   1.2.5
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2015 - 2017
+ * @version   1.2.8
  */
 
 namespace kartik\export;
 
-use \Yii;
-use \PHPExcel;
-use \PHPExcel_IOFactory;
-use \PHPExcel_Settings;
-use \PHPExcel_Style_Fill;
-use \PHPExcel_Writer_Abstract;
-use \PHPExcel_Writer_CSV;
-use \PHPExcel_Worksheet;
-use \Closure;
+use Closure;
+use kartik\base\TranslationTrait;
+use kartik\dialog\Dialog;
+use kartik\dynagrid\Dynagrid;
+use kartik\grid\GridView;
+use PHPExcel;
+use PHPExcel_IOFactory;
+use PHPExcel_Settings;
+use PHPExcel_Style_Fill;
+use PHPExcel_Worksheet;
+use PHPExcel_Writer_Abstract;
+use PHPExcel_Writer_CSV;
+use Yii;
 use yii\base\InvalidConfigException;
-use yii\helpers\Url;
-use yii\helpers\Html;
-use yii\helpers\Json;
-use yii\helpers\Inflector;
-use yii\helpers\ArrayHelper;
-use yii\data\BaseDataProvider;
+use yii\base\Model;
+use yii\bootstrap\ButtonDropdown;
 use yii\data\ActiveDataProvider;
+use yii\data\BaseDataProvider;
+use yii\db\ActiveQueryInterface;
+use yii\grid\ActionColumn;
 use yii\grid\Column;
 use yii\grid\DataColumn;
 use yii\grid\SerialColumn;
-use yii\grid\ActionColumn;
-use yii\db\ActiveQueryInterface;
-use yii\base\Model;
-use yii\web\View;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
+use yii\helpers\Inflector;
+use yii\helpers\Json;
+use yii\helpers\Url;
 use yii\web\JsExpression;
-use yii\bootstrap\ButtonDropdown;
-use kartik\grid\GridView;
-use kartik\base\TranslationTrait;
+use yii\web\View;
 
 /**
  * Export menu widget. Export tabular data to various formats using the PHPExcel library by reading data from a
@@ -50,106 +52,138 @@ class ExportMenu extends GridView
     use TranslationTrait;
 
     /**
-     * Export formats
+     * HTML (Hyper Text Markup Language) export format
      */
     const FORMAT_HTML = 'HTML';
-    const FORMAT_CSV = 'CSV';
-    const FORMAT_TEXT = 'TXT';
-    const FORMAT_PDF = 'PDF';
-    const FORMAT_EXCEL = 'Excel5';
-    const FORMAT_EXCEL_X = 'Excel2007';
-
     /**
-     * Export form submission targets
+     * CSV (comma separated values) export format
+     */
+    const FORMAT_CSV = 'CSV';
+    /**
+     * Text export format
+     */
+    const FORMAT_TEXT = 'TXT';
+    /**
+     * PDF (Portable Document Format) export format
+     */
+    const FORMAT_PDF = 'PDF';
+    /**
+     * Microsoft Excel 95+ export format
+     */
+    const FORMAT_EXCEL = 'Excel5';
+    /**
+     * Microsoft Excel 2007+ export format
+     */
+    const FORMAT_EXCEL_X = 'Excel2007';
+    /**
+     * Set download target for grid export to a popup browser window
      */
     const TARGET_POPUP = '_popup';
-    const TARGET_SELF = '_self';
-    const TARGET_BLANK = '_blank';
-
     /**
-     * Input parameters from export form
+     * Set download target for grid export to the same open document on the browser
+     */
+    const TARGET_SELF = '_self';
+    /**
+     * Set download target for grid export to a new window that auto closes after download
+     */
+    const TARGET_BLANK = '_blank';
+    /**
+     * Export type input parameter for export form
      */
     const PARAM_EXPORT_TYPE = 'export_type';
+    /**
+     * Export columns input parameter for export form
+     */
     const PARAM_EXPORT_COLS = 'export_columns';
+    /**
+     * Column selector flag parameter for export form
+     */
     const PARAM_COLSEL_FLAG = 'column_selector_enabled';
 
     /**
      * @var string the target for submitting the export form, which will trigger the download of the exported file.
-     *     Must be one of the `TARGET_` constants. Defaults to `ExportMenu::TARGET_POPUP`. Note if you set `stream` and
-     *     `streamAfterSave` to `false`, then this will be overridden to `_self`.
+     * Must be one of the `TARGET_` constants. Defaults to [[TARGET_POPUP]]. Note if you set [[stream]] and
+     * [[streamAfterSave]] to `false`, then this will be overridden to [[TARGET_SELF]].
      */
     public $target = self::TARGET_POPUP;
 
     /**
-     * @var bool whether to show a confirmation alert dialog before download. This confirmation dialog will notify user
-     *     about the type of exported file for download and to disable popup blockers. Defaults to `true`.
+     * @var array configuration settings for the Krajee dialog widget that will be used to render alerts and
+     * confirmation dialog prompts
+     * @see http://demos.krajee.com/dialog
+     */
+    public $krajeeDialogSettings = [];
+
+    /**
+     * @var boolean whether to show a confirmation alert dialog before download. This confirmation dialog will notify
+     * user about the type of exported file for download and to disable popup blockers. Defaults to `true`.
      */
     public $showConfirmAlert = true;
 
     /**
-     * @var bool whether to enable the yii gridview formatter component. Defaults to `true`. If set to `false`, this
-     *     will render content as `raw` format.
+     * @var boolean whether to enable the yii gridview formatter component. Defaults to `true`. If set to `false`, this
+     * will render content as `raw` format.
      */
     public $enableFormatter = true;
 
     /**
-     * @var bool whether to render the export menu as bootstrap button dropdown widget. Defaults to `true`. If set to
-     *     `false`, this will generate a simple HTML list of links.
+     * @var boolean whether to render the export menu as bootstrap button dropdown widget. Defaults to `true`. If set to
+     * `false`, this will generate a simple HTML list of links.
      */
     public $asDropdown = true;
 
     /**
      * @var string the pjax container identifier inside which this menu is being rendered. If set the jQuery export
-     *     menu plugin will get auto initialized on pjax request completion.
+     * menu plugin will get auto initialized on pjax request completion.
      */
     public $pjaxContainerId;
 
     /**
-     * @var array the HTML attributes for the export button menu. Applicable only if `asDropdown` is set to `true`. The
-     *     following special options are available:
-     * - label: string, defaults to empty string
-     * - icon: string, defaults to `<i class="glyphicon glyphicon-export"></i>`
-     * - title: string, defaults to `Export data in selected format`.
-     * - menuOptions: array, the HTML attributes for the dropdown menu.
-     * - itemsBefore: array, any additional items that will be merged/prepended before with the export dropdown list.
-     *     This should be similar to the `items` property as supported by `\yii\bootstrap\ButtonDropdown` widget. Note
-     *     the page export items will be automatically generated based on settings in the `exportConfig` property.
-     * - itemsAfter: array, any additional items that will be merged/appended after with the export dropdown list. This
-     *     should be similar to the `items` property as supported by `\yii\bootstrap\ButtonDropdown` widget. Note the
-     *     page export items will be automatically generated based on settings in the `exportConfig` property.
-     */
-    public $dropdownOptions = ['class' => 'btn btn-default'];
-
-    /**
-     * @var bool whether to clear all previous / parent buffers. Defaults to `false`.
+     * @var boolean whether to clear all previous / parent buffers. Defaults to `false`.
      */
     public $clearBuffers = false;
 
     /**
-     * @var bool whether to initialize data provider and clear models before rendering. Defaults to `false`.
+     * @var array the HTML attributes for the export button menu. Applicable only if [[asDropdown]] is set to `true`.
+     * The following special options are available:
+     * - `label`: _string_, defaults to empty string
+     * - `icon`: _string_, defaults to `<i class="glyphicon glyphicon-export"></i>`
+     * - `title`: _string_, defaults to `Export data in selected format`.
+     * - `menuOptions`: _array_, the HTML attributes for the dropdown menu.
+     * - `itemsBefore`: _array_, any additional items that will be merged/prepended before with the export dropdown list.
+     *   This should be similar to the `items` property as supported by [[ButtonDropdown]] widget. Note the page export
+     *   items will be automatically generated based on settings in the [[exportConfig]] property.
+     * - `itemsAfter`: _array_, any additional items that will be merged/appended after with the export dropdown list. This
+     *   should be similar to the `items` property as supported by [[ButtonDropdown]] widget. Note the
+     *   page export items will be automatically generated based on settings in the `exportConfig` property.
+     */
+    public $dropdownOptions = ['class' => 'btn btn-default'];
+
+    /**
+     * @var boolean whether to initialize data provider and clear models before rendering. Defaults to `false`.
      */
     public $initProvider = false;
 
     /**
-     * @var bool whether to show a column selector to select columns for export. Defaults to `true`.
+     * @var boolean whether to show a column selector to select columns for export. Defaults to `true`.
      */
     public $showColumnSelector = true;
 
     /**
      * @var array the configuration of the column names in the column selector. Note: column names will be generated
-     *     automatically by default. Any setting in this property will override the auto-generated column names. This
-     *     list should be setup as `$key => $value` where:
-     * $key: int, is the zero based index of the column as set in `$columns`.
-     * $value: string, is the column name/label you wish to display in the column selector.
+     * automatically by default. Any setting in this property will override the auto-generated column names. This
+     * list should be setup as `$key => $value` where:
+     * - `$key`: _integer_, is the zero based index of the column as set in `$columns`.
+     * - `$value`: _string_, is the column name/label you wish to display in the column selector.
      */
     public $columnSelector = [];
 
     /**
      * @var array the HTML attributes for the column selector dropdown button. The following special options are
-     *     recognized:
-     * - label: string, defaults to empty string.
-     * - icon: string, defaults to `<i class="glyphicon glyphicon-list"></i>`
-     * - title: string, defaults to `Select columns for export`.
+     * recognized:
+     * - `label`: _string_, defaults to empty string.
+     * - `icon`: _string_, defaults to `<i class="glyphicon glyphicon-list"></i>`
+     * - `title`: _string_, defaults to `Select columns for export`.
      */
     public $columnSelectorOptions = [];
 
@@ -160,30 +194,29 @@ class ExportMenu extends GridView
 
     /**
      * @var array the settings for the toggle all checkbox to check / uncheck the columns as a batch. Should be setup as
-     *     an associative array which can have the following keys:
-     * - `show`: bool, whether the batch toggle checkbox is to be shown. Defaults to `true`.
-     * - `label`: string, the label to be displayed for toggle all. Defaults to `Toggle All`.
-     * - `options`: array, the HTML attributes for the toggle label text. Defaults to `['class'=>'kv-toggle-all']`
+     * an associative array which can have the following keys:
+     * - `show`: _boolean_, whether the batch toggle checkbox is to be shown. Defaults to `true`.
+     * - `label`: _string_, the label to be displayed for toggle all. Defaults to `Toggle All`.
+     * - `options`: _array_, the HTML attributes for the toggle label text. Defaults to `['class'=>'kv-toggle-all']`
      */
     public $columnBatchToggleSettings = [];
 
     /**
-     * @var array, HTML attributes for the container to wrap the widget. Defaults to ['class'=>'btn-group',
-     *     'role'=>'group']
+     * @var array, HTML attributes for the container to wrap the widget. Defaults to:
+     * `['class'=>'btn-group', 'role'=>'group']`
      */
     public $container = ['class' => 'btn-group', 'role' => 'group'];
 
     /**
      * @var string, the template for rendering the content in the container. This will be parsed only if `asDropdown`
-     *     is `true`. The following tags will be replaced:
-     * - {columns}: will be replaced with the column selector dropdown
-     * - {menu}: will be replaced with export menu dropdown
+     * is `true`. The following tokens will be replaced:
+     * - `{columns}`: will be replaced with the column selector dropdown
+     * - `{menu}`: will be replaced with export menu dropdown
      */
     public $template = "{columns}\n{menu}";
 
     /**
-     * @var int timeout for the export function (in seconds), if timeout = -1 it doesn't set any timeout so default PHP
-     *     timeout will be used
+     * @var integer timeout for the export function (in seconds), if timeout is < 0, the default PHP timeout will be used.
      */
     public $timeout = -1;
 
@@ -204,13 +237,13 @@ class ExportMenu extends GridView
 
     /**
      * @var array the column indexes for export that will be hidden for selection in the column selector, but will
-     *     still be displayed in export output.
+     * still be displayed in export output.
      */
     public $hiddenColumns = [];
 
     /**
      * @var array the column indexes for export that will not be exported at all nor will they be shown in the column
-     *     selector
+     * selector
      */
     public $noExportColumns = [];
 
@@ -225,45 +258,61 @@ class ExportMenu extends GridView
     public $exportColumnsView = '_columns';
 
     /**
-     * @var boolean whether to use font awesome icons for rendering the icons as defined in `exportConfig`. If set to
-     *     `true`, you must load the FontAwesome CSS separately in your application.
+     * @var boolean whether to use font awesome icons for rendering the icons as defined in [[exportConfig]]. If set to
+     * `true`, you must load the FontAwesome CSS separately in your application.
      */
     public $fontAwesome = false;
 
     /**
      * @var array the export configuration. The array keys must be the one of the `format` constants (CSV, HTML, TEXT,
-     *     EXCEL, PDF) and the array value is a configuration array consisting of these settings:
-     * - label: string, the label for the export format menu item displayed
-     * - icon: string, the glyphicon or font-awesome name suffix to be displayed before the export menu item label. If
-     *     set to an empty string, this will not be displayed.
-     * - iconOptions: array, HTML attributes for export menu icon.
-     * - linkOptions: array, HTML attributes for each export item link.
-     * - filename: the base file name for the generated file. Defaults to 'grid-export'. This will be used to generate
-     *     a default file name for downloading.
-     * - extension: the extension for the file name
-     * - alertMsg: string, the message prompt to show before saving. If this is empty or not set it will not be
-     *     displayed.
-     * - mime: string, the mime type (for the file format) to be set before downloading.
-     * - writer: string, the PHP Excel writer type
-     * - options: array, HTML attributes for the export menu item.
+     * EXCEL, PDF) and the array value is a configuration array consisting of these settings:
+     * - `label`: _string_, the label for the export format menu item displayed
+     * - `icon`: _string_, the glyphicon or font-awesome name suffix to be displayed before the export menu item label. If
+     *   set to an empty string_, this will not be displayed.
+     * - `iconOptions`: _array_, HTML attributes for export menu icon.
+     * - `linkOptions`: _array_, HTML attributes for each export item link.
+     * - `filename`: _string_, the base file name for the generated file. Defaults to 'grid-export'. This will be used to generate
+     *   a default file name for downloading.
+     * - `extension`: _string_, the extension for the file name
+     * - `alertMsg`: _string_, the message prompt to show before saving. If this is empty or not set it will not be
+     *   displayed.
+     * - `mime`: _string_, the mime type (for the file format) to be set before downloading.
+     * - `writer`: _string_, the PHP Excel writer type
+     * - `options`: _array_, HTML attributes for the export menu item.
      */
     public $exportConfig = [];
 
     /**
      * @var string the request parameter ($_GET or $_POST) that will be submitted during export. If not set this will
-     *     be auto generated. This should be unique for each export menu widget (for multiple export menu widgets on
-     *     same page).
+     *  be auto generated. This should be unique for each export menu widget (for multiple export menu widgets on
+     *  same page).
      */
     public $exportRequestParam;
 
     /**
      * @var array the output style configuration options. It must be the style configuration array as required by
-     *     PHPExcel.
+     *  PHPExcel.
      */
     public $styleOptions = [];
 
     /**
-     * @var bool whether to auto-size the excel output column widths. Defaults to `true`.
+     * @var array an array of rows to prepend in front of the grid used to create things like a title. Each array
+     * should be set with the following settings:
+     * - value: string, the value of the merged row
+     * - styleOptions: array, array of configuration options to set the style. See $styleOptions on how to configure.
+     */
+    public $contentBefore = [];
+
+    /**
+     * @var array an array of rows to append after the footer row. Each array
+     * should be set with the following settings:
+     * - value: string, the value of the merged row
+     * - styleOptions: array, array of configuration options to set the style. See $styleOptions on how to configure.
+     */
+    public $contentAfter = [];
+
+    /**
+     * @var boolean whether to auto-size the excel output column widths. Defaults to `true`.
      */
     public $autoWidth = true;
 
@@ -279,65 +328,65 @@ class ExportMenu extends GridView
 
     /**
      * @var string the folder to save the exported file. Defaults to '@webroot/tmp/'. This property will be parsed only
-     *     if `stream` is false. If the specified folder does not exist, files will be saved to `@webroot`.
+     * if `stream` is false. If the specified folder does not exist, files will be saved to `@webroot`.
      */
     public $folder = '@webroot/tmp';
 
     /**
      * @var string the web accessible path for the saved file location. This property will be parsed only if `stream`
-     *     is false. Note the `afterSaveView` property that will render the displayed file link.
+     * is false. Note the `afterSaveView` property that will render the displayed file link.
      */
     public $linkPath = '/tmp';
 
     /**
-     * @var bool whether to stream output to the browser.
+     * @var boolean whether to stream output to the browser.
      */
     public $stream = true;
 
     /**
-     * @var bool whether to stream after saving file to `$folder` and when `$stream` is `false`. This property will be
-     *     validated only when `$stream` is `false`.
+     * @var boolean whether to stream after saving file to `$folder` and when `$stream` is `false`. This property will be
+     * validated only when `$stream` is `false`.
      */
     public $streamAfterSave = false;
 
     /**
-     * @var bool whether to delete file after saving file to `$folder` and when `$stream` is `false`. This property
-     *     will be validated only when `$stream` is `false`. This property is useful only if `streamAfterSave` is
-     *     `true`.
+     * @var boolean whether to delete file after saving file to `$folder` and when `$stream` is `false`. This property
+     * will be validated only when `$stream` is `false`. This property is useful only if `streamAfterSave` is
+     * `true`.
      */
     public $deleteAfterSave = false;
 
     /**
      * @var string|bool the view file to show details of exported file link. This property will be validated only when
-     *     `$stream` is `false` and `streamAfterSave` is `false`. You can set this to `false` to not display any file
-     *     link details for view.
+     * `$stream` is `false` and `streamAfterSave` is `false`. You can set this to `false` to not display any file
+     * link details for view. This defaults to the `_view` PHP file in the `views` folder of the extension.
      */
     public $afterSaveView = '_view';
 
     /**
-     * @var int fetch models from the dataprovider using batches of this size. Set this to `0` (the default) to
-     *     disable. If `$dataProvider` does not have a pagination object, this parameter is ignored. Setting this
-     *     property helps reduce memory overflow issues by allowing parsing of models in batches, rather than fetching
-     *     all models in one go.
+     * @var integer  fetch models from the dataprovider using batches of this size. Set this to `0` (the default) to
+     * disable. If `$dataProvider` does not have a pagination object, this parameter is ignored. Setting this
+     * property helps reduce memory overflow issues by allowing parsing of models in batches, rather than fetching
+     * all models in one go.
      */
     public $batchSize = 0;
 
     /**
      * @var array, the configuration of various messages that will be displayed at runtime:
      * - allowPopups: string, the message to be shown to disable browser popups for download. Defaults to `Disable any
-     *     popup blockers in your browser to ensure proper download.`.
+     *   popup blockers in your browser to ensure proper download.`.
      * - confirmDownload: string, the message to be shown for confirming to proceed with the download. Defaults to `Ok
-     *     to proceed?`.
+     *   to proceed?`.
      * - downloadProgress: string, the message to be shown in a popup dialog when download request is executed.
-     *     Defaults to `Generating file. Please wait...`.
+     *   Defaults to `Generating file. Please wait...`.
      * - downloadComplete: string, the message to be shown in a popup dialog when download request is completed.
-     *     Defaults to `All done! Click anywhere here to close this window, once you have downloaded the file.`.
+     *   Defaults to `All done! Click anywhere here to close this window, once you have downloaded the file.`.
      */
     public $messages = [];
 
     /**
      * @var Closure the callback function on initializing the PHP Excel library. The anonymous function should have the
-     *     following signature:
+     * following signature:
      * ```php
      * function ($excel, $grid)
      * ```
@@ -349,7 +398,7 @@ class ExportMenu extends GridView
 
     /**
      * @var Closure the callback function on initializing the writer. The anonymous function should have the following
-     *     signature:
+     * signature:
      * ```php
      * function ($writer, $grid)
      * ```
@@ -361,7 +410,7 @@ class ExportMenu extends GridView
 
     /**
      * @var Closure the callback function to be executed on initializing the active sheet. The anonymous function
-     *     should have the following signature:
+     * should have the following signature:
      * ```php
      * function ($sheet, $grid)
      * ```
@@ -373,7 +422,7 @@ class ExportMenu extends GridView
 
     /**
      * @var Closure the callback function to be executed on rendering the header cell output content. The anonymous
-     *     function should have the following signature:
+     * function should have the following signature:
      * ```php
      * function ($cell, $content, $grid)
      * ```
@@ -386,7 +435,7 @@ class ExportMenu extends GridView
 
     /**
      * @var Closure the callback function to be executed on rendering each body data cell content. The anonymous
-     *     function should have the following signature:
+     * function should have the following signature:
      * ```php
      * function ($cell, $content, $model, $key, $index, $grid)
      * ```
@@ -402,7 +451,7 @@ class ExportMenu extends GridView
 
     /**
      * @var Closure the callback function to be executed on rendering the footer cell output content. The anonymous
-     *     function should have the following signature:
+     * function should have the following signature:
      * ```php
      * function ($cell, $content, $grid)
      * ```
@@ -415,7 +464,7 @@ class ExportMenu extends GridView
 
     /**
      * @var Closure the callback function to be executed on rendering the sheet. The anonymous function should have the
-     *     following signature:
+     * following signature:
      * ```php
      * function ($sheet, $grid)
      * ```
@@ -447,6 +496,36 @@ class ExportMenu extends GridView
      * @var array the internalization configuration for this widget
      */
     public $i18n = [];
+
+    /**
+     * @var boolean enable dynagrid for column selection. If set to `true` the inbuilt export menu column selector
+     * functionality will be disabled and not rendered and column settings for dynagrid will be used as per settings
+     * configured in [[dynagridOptions]].
+     */
+    public $dynagrid = false;
+
+    /**
+     * @var array dynagrid widget options. Applicable only if [[dynagrid]] is set to `true`.
+     */
+    public $dynagridOptions = ['options' => ['id' => 'dynagrid-export-menu']];
+
+    /**
+     * @var array the PHP Excel style configuration for a grouped grid row
+     */
+    public $groupedRowStyle = [
+        'font' => [
+            'bold' => false,
+            'color' => [
+                'argb' => '000000',
+            ],
+        ],
+        'fill' => [
+            'type' => PHPExcel_Style_Fill::FILL_SOLID,
+            'color' => [
+                'argb' => 'C9C9C9',
+            ],
+        ],
+    ];
 
     /**
      * @var string translation message file category name for i18n
@@ -485,27 +564,27 @@ class ExportMenu extends GridView
     protected $_objPHPExcelSheet;
 
     /**
-     * @var int the header beginning row
+     * @var integer  the header beginning row
      */
     protected $_headerBeginRow = 1;
 
     /**
-     * @var int the table beginning row
+     * @var integer  the table beginning row
      */
     protected $_beginRow = 1;
 
     /**
-     * @var int the current table end row
+     * @var integer  the current table end row
      */
     protected $_endRow = 1;
 
     /**
-     * @var int the current table end column
+     * @var integer  the current table end column
      */
     protected $_endCol = 1;
 
     /**
-     * @var bool whether the column selector is enabled
+     * @var boolean whether the column selector is enabled
      */
     protected $_columnSelectorEnabled = true;
 
@@ -552,14 +631,61 @@ class ExportMenu extends GridView
     ];
 
     /**
-     * @var bool flag to identify if download is triggered
+     * @var array columns to be grouped
+     */
+    protected $_groupedColumn = [];
+
+    /**
+     *
+     * @var array grouped row values
+     */
+    protected $_groupedRow = null;
+
+    /**
+     * @var boolean flag to identify if download is triggered
      */
     protected $_triggerDownload = false;
 
     /**
-     * @var bool flag to identify if no streaming of file is desired
+     * @var boolean flag to identify if no streaming of file is desired
      */
     protected $_doNotStream = false;
+
+    /**
+     * Appends slash to path if it does not exist
+     *
+     * @param string $path
+     * @param string $s the path separator
+     *
+     * @return string
+     */
+    public static function slash($path, $s = DIRECTORY_SEPARATOR)
+    {
+        $path = trim($path);
+        if (substr($path, -1) !== $s) {
+            $path .= $s;
+        }
+        return $path;
+    }
+
+    /**
+     * Returns an excel column name.
+     *
+     * @param int $index the column index number
+     *
+     * @return string
+     */
+    public static function columnName($index)
+    {
+        $i = intval($index) - 1;
+        if ($i >= 0 && $i < 26) {
+            return chr(ord('A') + $i);
+        }
+        if ($i > 25) {
+            return (self::columnName($i / 26)) . (self::columnName($i % 26 + 1));
+        }
+        return 'A';
+    }
 
     /**
      * @inheritdoc
@@ -588,6 +714,15 @@ class ExportMenu extends GridView
             $this->_columnSelectorEnabled = $_POST[self::PARAM_COLSEL_FLAG];
             $this->initSelectedColumns();
         }
+        if ($this->dynagrid) {
+            $this->_columnSelectorEnabled = false;
+            $options = $this->dynagridOptions;
+            $options['columns'] = $this->columns;
+            $options['storage'] = 'db';
+            $options['gridOptions']['dataProvider'] = $this->dataProvider;
+            $dynagrid = new DynaGrid($options);
+            $this->columns = $dynagrid->getColumns();
+        }
         parent::init();
     }
 
@@ -615,7 +750,9 @@ class ExportMenu extends GridView
         if ($this->_exportType === self::FORMAT_PDF) {
             $path = Yii::getAlias($this->pdfLibraryPath);
             if (!PHPExcel_Settings::setPdfRenderer($this->pdfLibrary, $path)) {
-                throw new InvalidConfigException("The pdf rendering library '{$this->pdfLibrary}' was not found or installed at path '{$path}'.");
+                throw new InvalidConfigException(
+                    "The pdf rendering library '{$this->pdfLibrary}' was not found or installed at path '{$path}'."
+                );
             }
         }
         if (empty($config['writer'])) {
@@ -624,9 +761,11 @@ class ExportMenu extends GridView
         $this->initPHPExcel();
         $this->initPHPExcelWriter($config['writer']);
         $this->initPHPExcelSheet();
+        $this->generateBeforeContent();
         $this->generateHeader();
-        $row = $this->generateBody();
-        $this->generateFooter($row);
+        $this->generateBody();
+        $row = $this->generateFooter();
+        $this->generateAfterContent($row);
         $writer = $this->_objPHPExcelWriter;
         $sheet = $this->_objPHPExcelSheet;
         if ($this->autoWidth) {
@@ -658,11 +797,13 @@ class ExportMenu extends GridView
                     $config = ArrayHelper::getValue($this->exportConfig, $this->_exportType, []);
                     if (!empty($config)) {
                         $file = $this->filename . '.' . $config['extension'];
-                        echo $this->render($this->afterSaveView, [
+                        echo $this->render(
+                            $this->afterSaveView, [
                             'file' => $file,
                             'icon' => ($this->fontAwesome ? 'fa fa-' : 'glyphicon glyphicon-') . $config['icon'],
                             'href' => Url::to([self::slash($this->linkPath, '/') . $file]),
-                        ]);
+                        ]
+                        );
                     }
                 }
             }
@@ -679,9 +820,551 @@ class ExportMenu extends GridView
     }
 
     /**
-     * Initialize columns selected for export
+     * Initializes export settings
+     */
+    public function initExport()
+    {
+        $this->_provider = clone($this->dataProvider);
+        if ($this->batchSize && $this->_provider->pagination) {
+            /** @noinspection PhpUndefinedFieldInspection */
+            $this->_provider->pagination = clone($this->dataProvider->pagination);
+            $this->_provider->pagination->pageSize = $this->batchSize;
+        } else {
+            $this->_provider->pagination = false;
+        }
+        if ($this->initProvider) {
+            $this->_provider->prepare(true);
+        }
+        $this->styleOptions = ArrayHelper::merge($this->_defaultStyleOptions, $this->styleOptions);
+        $this->filterModel = null;
+        $this->setDefaultExportConfig();
+        $this->exportConfig = ArrayHelper::merge($this->_defaultExportConfig, $this->exportConfig);
+        if (!isset($this->filename)) {
+            $this->filename = Yii::t('kvexport', 'grid-export');
+        }
+        $target = $this->target == self::TARGET_POPUP ? 'kvExportFullDialog' : $this->target;
+        $id = ArrayHelper::getValue($this->exportFormOptions, 'id', $this->options['id'] . '-form');
+        Html::addCssClass($this->exportFormOptions, 'kv-export-full-form');
+        $this->exportFormOptions += [
+            'id' => $id,
+            'target' => $target,
+        ];
+    }
+
+    /**
+     * Renders the export menu
      *
-     * @return void
+     * @return string the export menu markup
+     */
+    public function renderExportMenu()
+    {
+        $items = $this->asDropdown ? [] : '';
+        foreach ($this->exportConfig as $format => $settings) {
+            if (!isset($settings) || $settings === false) {
+                continue;
+            }
+            $label = '';
+            if (isset($settings['icon'])) {
+                $css = $this->fontAwesome ? 'fa fa-' : 'glyphicon glyphicon-';
+                $iconOptions = ArrayHelper::getValue($settings, 'iconOptions', []);
+                Html::addCssClass($iconOptions, $css . $settings['icon']);
+                $label = Html::tag('i', '', $iconOptions) . ' ';
+            }
+            if (isset($settings['label'])) {
+                $label .= $settings['label'];
+            }
+            $fmt = strtolower($format);
+            $linkOptions = ArrayHelper::getValue($settings, 'linkOptions', []);
+            $linkOptions['id'] = $this->options['id'] . '-' . $fmt;
+            $linkOptions['data-format'] = $format;
+            $options = ArrayHelper::getValue($settings, 'options', []);
+            Html::addCssClass($linkOptions, "export-full-{$fmt}");
+            if ($this->asDropdown) {
+                $items[] = [
+                    'label' => $label,
+                    'url' => '#',
+                    'linkOptions' => $linkOptions,
+                    'options' => $options,
+                ];
+            } else {
+                $tag = ArrayHelper::remove($options, 'tag', 'li');
+                if ($tag !== false) {
+                    $items .= Html::tag($tag, Html::a($label, '#', $linkOptions), $options);
+                } else {
+                    $items .= Html::a($label, '#', $linkOptions);
+                }
+            }
+        }
+        $form = $this->render(
+            $this->exportFormView, [
+            'options' => $this->exportFormOptions,
+            'exportType' => $this->_exportType,
+            'columnSelectorEnabled' => $this->_columnSelectorEnabled,
+            'exportRequestParam' => $this->exportRequestParam,
+            'exportTypeParam' => self::PARAM_EXPORT_TYPE,
+            'exportColsParam' => self::PARAM_EXPORT_COLS,
+            'colselFlagParam' => self::PARAM_COLSEL_FLAG,
+        ]
+        );
+        if ($this->asDropdown) {
+            $icon = ArrayHelper::remove($this->dropdownOptions, 'icon', '<i class="glyphicon glyphicon-export"></i>');
+            $label = ArrayHelper::remove($this->dropdownOptions, 'label', null);
+            $label = $label === null ? $icon : $icon . ' ' . $label;
+            if (!isset($this->dropdownOptions['title'])) {
+                $this->dropdownOptions['title'] = Yii::t('kvexport', 'Export data in selected format');
+            }
+            $menuOptions = ArrayHelper::remove($this->dropdownOptions, 'menuOptions', []);
+            $itemsBefore = ArrayHelper::remove($this->dropdownOptions, 'itemsBefore', []);
+            $itemsAfter = ArrayHelper::remove($this->dropdownOptions, 'itemsAfter', []);
+            $items = ArrayHelper::merge($itemsBefore, $items, $itemsAfter);
+            $content = strtr(
+                    $this->template, [
+                    '{menu}' => ButtonDropdown::widget(
+                        [
+                            'label' => $label,
+                            'dropdown' => ['items' => $items, 'encodeLabels' => false, 'options' => $menuOptions],
+                            'options' => $this->dropdownOptions,
+                            'encodeLabel' => false,
+                        ]
+                    ),
+                    '{columns}' => $this->renderColumnSelector(),
+                ]
+                ) . "\n" . $form;
+            return Html::tag('div', $content, $this->container);
+        } else {
+            return $items . "\n" . $form;
+        }
+    }
+
+    /**
+     * Renders the columns selector
+     *
+     * @return string the column selector markup
+     */
+    public function renderColumnSelector()
+    {
+        if (!$this->_columnSelectorEnabled) {
+            return '';
+        }
+        return $this->render(
+            $this->exportColumnsView, [
+            'options' => $this->columnSelectorOptions,
+            'menuOptions' => $this->columnSelectorMenuOptions,
+            'columnSelector' => $this->columnSelector,
+            'batchToggle' => $this->columnBatchToggleSettings,
+            'selectedColumns' => $this->selectedColumns,
+            'disabledColumns' => $this->disabledColumns,
+            'hiddenColumns' => $this->hiddenColumns,
+            'noExportColumns' => $this->noExportColumns,
+        ]
+        );
+    }
+
+    /**
+     * Initializes PHP Excel Object Instance
+     */
+    public function initPHPExcel()
+    {
+        $this->_objPHPExcel = new PHPExcel();
+        $creator = '';
+        $title = '';
+        $subject = '';
+        $description = Yii::t('kvexport', 'Grid export generated by Krajee ExportMenu widget (yii2-export)');
+        $category = '';
+        $keywords = '';
+        $manager = '';
+        $company = 'Krajee Solutions';
+        $created = date("Y-m-d H:i:s");
+        $lastModifiedBy = 'krajee';
+        extract($this->docProperties);
+        $this->_objPHPExcel->getProperties()
+                           ->setCreator($creator)
+                           ->setTitle($title)
+                           ->setSubject($subject)
+                           ->setDescription($description)
+                           ->setCategory($category)
+                           ->setKeywords($keywords)
+                           ->setManager($manager)
+                           ->setCompany($company)
+                           ->setCreated($created)
+                           ->setLastModifiedBy($lastModifiedBy);
+        $this->raiseEvent('onInitExcel', [$this->_objPHPExcel, $this]);
+    }
+
+    /**
+     * Initializes PHP Excel Writer Object Instance
+     *
+     * @param string $type the writer type as set in export config
+     */
+    public function initPHPExcelWriter($type)
+    {
+        /**
+         * @var PHPExcel_Writer_CSV $writer
+         */
+        $writer = $this->_objPHPExcelWriter = PHPExcel_IOFactory::createWriter($this->_objPHPExcel, $type);
+        if ($this->_exportType === self::FORMAT_TEXT) {
+            $writer->setDelimiter("\t");
+        }
+        $this->raiseEvent('onInitWriter', [$this->_objPHPExcelWriter, $this]);
+    }
+
+    /**
+     * Initializes PHP Excel Worksheet Instance
+     */
+    public function initPHPExcelSheet()
+    {
+        $this->_objPHPExcelSheet = $this->_objPHPExcel->getActiveSheet();
+        $this->raiseEvent('onInitSheet', [$this->_objPHPExcelSheet, $this]);
+    }
+
+    /**
+     * Generates the before content at the top of the exported sheet
+     */
+    public function generateBeforeContent()
+    {
+        $colFirst = self::columnName(1);
+        $sheet = $this->_objPHPExcelSheet;
+        foreach ($this->contentBefore as $contentBefore) {
+            $sheet->setCellValue($colFirst . $this->_beginRow, $contentBefore['value'], true);
+            $opts = $this->getStyleOpts($contentBefore);
+            $sheet->getStyle($colFirst . $this->_beginRow)->applyFromArray($opts);
+            $this->_beginRow += 1;
+        }
+    }
+
+    /**
+     * Generates the output data header content.
+     */
+    public function generateHeader()
+    {
+        $columns = $this->getVisibleColumns();
+        if (count($columns) == 0) {
+            return;
+        }
+        $sheet = $this->_objPHPExcelSheet;
+        $styleOpts = ArrayHelper::getValue($this->styleOptions, $this->_exportType, []);
+        $colFirst = self::columnName(1);
+
+        $this->_endCol = 0;
+        foreach ($this->getVisibleColumns() as $column) {
+            $this->_endCol++;
+            /**
+             * @var DataColumn $column
+             */
+            $head = ($column instanceof DataColumn) ? $this->getColumnHeader($column) : $column->header;
+            $id = self::columnName($this->_endCol) . $this->_beginRow;
+            $cell = $sheet->setCellValue($id, $head, true);
+            // Apply formatting to header cell
+            $sheet->getStyle($id)->applyFromArray($styleOpts);
+            $this->raiseEvent('onRenderHeaderCell', [$cell, $head, $this]);
+        }
+        for ($i = $this->_headerBeginRow; $i < ($this->_beginRow); $i++) {
+            $sheet->mergeCells($colFirst . $i . ":" . self::columnName($this->_endCol) . $i);
+        }
+
+        // Freeze the top row
+        $sheet->freezePane($colFirst . ($this->_beginRow + 1));
+    }
+
+    /**
+     * Gets the visible columns for export
+     *
+     * @return array the columns configuration
+     */
+    public function getVisibleColumns()
+    {
+        if (!$this->_columnSelectorEnabled) {
+            return $this->columns;
+        }
+        return $this->_visibleColumns;
+    }
+
+    /**
+     * Sets visible columns for export
+     */
+    public function setVisibleColumns()
+    {
+        if (!$this->_columnSelectorEnabled) {
+            $this->_visibleColumns = $this->columns;
+            return;
+        }
+        $cols = [];
+        foreach ($this->columns as $key => $column) {
+            if (!in_array($key, $this->noExportColumns) && in_array($key, $this->selectedColumns)) {
+                $cols[] = $column;
+            }
+        }
+        $this->_visibleColumns = $cols;
+    }
+
+    /**
+     * Gets the column header content
+     *
+     * @param DataColumn $col
+     *
+     * @return string
+     */
+    public function getColumnHeader($col)
+    {
+        if ($col->header !== null || ($col->label === null && $col->attribute === null)) {
+            return trim($col->header) !== '' ? $col->header : $col->grid->emptyCell;
+        }
+        $provider = $this->dataProvider;
+        if ($col->label === null) {
+            if ($provider instanceof ActiveDataProvider && $provider->query instanceof ActiveQueryInterface) {
+                /**
+                 * @var \yii\db\ActiveRecord $model
+                 */
+                $model = new $provider->query->modelClass;
+                $label = $model->getAttributeLabel($col->attribute);
+            } else {
+                $models = $provider->getModels();
+                if (($model = reset($models)) instanceof Model) {
+                    $label = $model->getAttributeLabel($col->attribute);
+                } else {
+                    $label = Inflector::camel2words($col->attribute);
+                }
+            }
+        } else {
+            $label = $col->label;
+        }
+        return $label;
+    }
+
+    /**
+     * Generates the output data body content.
+     *
+     * @return integer the number of output rows.
+     */
+    public function generateBody()
+    {
+        $this->_endRow = 0;
+        $columns = $this->getVisibleColumns();
+        $models = array_values($this->_provider->getModels());
+        if (count($columns) == 0) {
+            $cell = $this->_objPHPExcelSheet->setCellValue('A1', $this->emptyText, true);
+            $model = reset($models);
+            $this->raiseEvent('onRenderDataCell', [$cell, $this->emptyText, $model, null, 0, $this]);
+            return 0;
+        }
+        // do not execute multiple COUNT(*) queries
+        $totalCount = $this->_provider->getTotalCount();
+        $this->findGroupedColumn();
+        while (count($models) > 0) {
+            $keys = $this->_provider->getKeys();
+            foreach ($models as $index => $model) {
+                $key = $keys[$index];
+                $this->generateRow($model, $key, $this->_endRow);
+                $this->_endRow++;
+                if ($index === $totalCount) {
+                    //a little hack to generate last grouped footer
+                    $this->checkGroupedRow($model, $models[0], $key, $this->_endRow);
+                } elseif (isset($models[$index + 1])) {
+                    $this->checkGroupedRow($model, $models[$index + 1], $key, $this->_endRow);
+                }
+                if (!is_null($this->_groupedRow)) {
+                    $this->_endRow++;
+                    $this->_objPHPExcelSheet->fromArray($this->_groupedRow, null, "A" . ($this->_endRow + 1), true);
+                    $cell = "A" . ($this->_endRow + 1) . ":" . self::columnName(count($columns)) . ($this->_endRow + 1);
+                    $this->_objPHPExcelSheet->getStyle($cell)->applyFromArray($this->groupedRowStyle);
+                    $this->_groupedRow = null;
+                }
+            }
+            if ($this->_provider->pagination) {
+                $this->_provider->pagination->page++;
+                $this->_provider->refresh();
+                $this->_provider->setTotalCount($totalCount);
+                $models = $this->_provider->getModels();
+            } else {
+                $models = [];
+            }
+        }
+
+        // Set autofilter on
+        $this->_objPHPExcelSheet->setAutoFilter(
+            self::columnName(1) . $this->_beginRow . ":" . self::columnName($this->_endCol) . $this->_endRow
+        );
+        return $this->_endRow;
+    }
+
+    /**
+     * Generates an output data row with the given data model and key.
+     *
+     * @param mixed   $model the data model to be rendered
+     * @param mixed   $key the key associated with the data model
+     * @param integer $index the zero-based index of the data model among the model array returned by [[dataProvider]].
+     */
+    public function generateRow($model, $key, $index)
+    {
+        /**
+         * @var Column $column
+         */
+        $this->_endCol = 0;
+        foreach ($this->getVisibleColumns() as $column) {
+            if ($column instanceof SerialColumn) {
+                $value = $column->renderDataCell($model, $key, $index);
+            } elseif ($column instanceof ActionColumn) {
+                $value = null;
+            } elseif (!isset($column->content)) {
+                $format = $this->enableFormatter && isset($column->format) ? $column->format : 'raw';
+                $value = method_exists($column, 'getDataCellValue') ?
+                    $this->formatter->format($column->getDataCellValue($model, $key, $index), $format) :
+                    $column->renderDataCell($model, $key, $index);
+            } elseif (is_callable($column->content)) {
+                $value = call_user_func($column->content, $model, $key, $index, $column);
+            } elseif (isset($column->attribute)) {
+                $value = ArrayHelper::getValue($model, $column->attribute, '');
+            } else {
+                $value = null;
+            }
+            $this->_endCol++;
+            $cell = $this->_objPHPExcelSheet->setCellValue(
+                self::columnName($this->_endCol) . ($index + $this->_beginRow + 1),
+                !isset($value) || $value === '' ? '' : strip_tags($value),
+                true
+            );
+            $this->raiseEvent('onRenderDataCell', [$cell, $value, $model, $key, $index, $this]);
+        }
+    }
+
+    /**
+     * Generates the output footer row after a specific row number
+     *
+     * @return integer the row number after which the footer is to be generated
+     */
+    public function generateFooter()
+    {
+        $row = $this->_endRow + $this->_beginRow;
+        $footerExists = false;
+        $columns = $this->getVisibleColumns();
+        if (count($columns) == 0) {
+            return 0;
+        }
+        $this->_endCol = 0;
+        foreach ($this->getVisibleColumns() as $n => $column) {
+            $this->_endCol = $this->_endCol + 1;
+            if ($column->footer) {
+                $footerExists = true;
+                $footer = trim($column->footer) !== '' ? $column->footer : $column->grid->blankDisplay;
+                $cell = $this->_objPHPExcel->getActiveSheet()->setCellValue(
+                    self::columnName($this->_endCol) . ($row + 1),
+                    $footer,
+                    true
+                );
+                $this->raiseEvent('onRenderFooterCell', [$cell, $footer, $this]);
+            }
+        }
+        if ($footerExists) {
+            $row++;
+        }
+        return $row;
+    }
+
+    /**
+     * Generates the after content at the bottom of the exported sheet
+     *
+     * @param integer $row the row number after which the content is to be generated
+     */
+    public function generateAfterContent($row)
+    {
+        $colFirst = self::columnName(1);
+        $row++;
+        $afterContentBeginRow = $row;
+        $sheet = $this->_objPHPExcelSheet;
+        foreach ($this->contentAfter as $contentAfter) {
+            $sheet->setCellValue($colFirst . $row, $contentAfter['value'], true);
+            $opts = $this->getStyleOpts($contentAfter);
+            $sheet->getStyle($colFirst . $row)->applyFromArray($opts);
+            $row += 1;
+        }
+        for ($i = $afterContentBeginRow; $i < $row; $i++) {
+            $sheet->mergeCells($colFirst . $i . ":" . self::columnName($this->_endCol) . $i);
+        }
+    }
+
+    /**
+     * Gets the currently selected export type
+     *
+     * @return string
+     */
+    public function getExportType()
+    {
+        return $this->_exportType;
+    }
+
+    /**
+     * Gets the PHP Excel object
+     *
+     * @return PHPExcel the current PHPExcel object instance
+     */
+    public function getPHPExcel()
+    {
+        return $this->_objPHPExcel;
+    }
+
+    /**
+     * Gets the PHP Excel writer object
+     *
+     * @return PHPExcel_Writer_Abstract the current PHPExcel_Writer_Abstract object instance
+     */
+    public function getPHPExcelWriter()
+    {
+        return $this->_objPHPExcelWriter;
+    }
+
+    /**
+     * Gets the PHP Excel sheet object
+     *
+     * @return PHPExcel_Worksheet the current PHPExcel_Worksheet object instance
+     */
+    public function getPHPExcelSheet()
+    {
+        return $this->_objPHPExcelSheet;
+    }
+
+    /**
+     * Sets the PHP Excel object
+     *
+     * @param $obj PHPExcel the PHPExcel object instance
+     */
+    public function setPHPExcel($obj)
+    {
+        $this->_objPHPExcel = $obj;
+    }
+
+    /**
+     * Sets the PHP Excel writer object
+     *
+     * @param $obj PHPExcel_Writer_Abstract the PHPExcel_Writer_Abstract object instance
+     */
+    public function setPHPExcelWriter($obj)
+    {
+        $this->_objPHPExcelWriter = $obj;
+    }
+
+    /**
+     * Sets the PHP Excel sheet object
+     *
+     * @param $obj PHPExcel_Worksheet the PHPExcel_Worksheet object instance
+     */
+    public function setPHPExcelSheet($obj)
+    {
+        $this->_objPHPExcelSheet = $obj;
+    }
+
+    /**
+     * Destroys PHP Excel Object Instance
+     */
+    public function destroyPHPExcel()
+    {
+        if (isset($this->_objPHPExcel)) {
+            $this->_objPHPExcel->disconnectWorksheets();
+        }
+        unset($this->_provider, $this->_objPHPExcelWriter, $this->_objPHPExcelSheet, $this->_objPHPExcel);
+    }
+
+    /**
+     * Initialize columns selected for export
      */
     protected function initSelectedColumns()
     {
@@ -689,33 +1372,14 @@ class ExportMenu extends GridView
             return;
         }
         $this->selectedColumns = array_keys($this->columnSelector);
-        if (empty($_POST[self::PARAM_EXPORT_COLS])) {
+        if (!isset($_POST[self::PARAM_EXPORT_COLS]) or $_POST[self::PARAM_EXPORT_COLS] === '') {
             return;
         }
-        $this->selectedColumns = explode(',', $_POST[self::PARAM_EXPORT_COLS]);
-    }
-
-    /**
-     * Appends slash to path if it does not exist
-     *
-     * @param string $path
-     * @param string $s the path separator
-     *
-     * @return string
-     */
-    public static function slash($path, $s = DIRECTORY_SEPARATOR)
-    {
-        $path = trim($path);
-        if (substr($path, -1) !== $s) {
-            $path .= $s;
-        }
-        return $path;
+        $this->selectedColumns = Json::decode($_POST[self::PARAM_EXPORT_COLS]);
     }
 
     /**
      * Clear output buffers
-     *
-     * @return void
      */
     protected function clearOutputBuffers()
     {
@@ -730,8 +1394,6 @@ class ExportMenu extends GridView
 
     /**
      * Initialize column selector list
-     *
-     * @return void
      */
     protected function initColumnSelector()
     {
@@ -741,24 +1403,28 @@ class ExportMenu extends GridView
         $selector = [];
         Html::addCssClass($this->columnSelectorOptions, 'btn btn-default dropdown-toggle');
         $header = ArrayHelper::getValue($this->columnSelectorOptions, 'header', Yii::t('kvexport', 'Select Columns'));
-        $this->columnSelectorOptions['header'] = (empty($header) || $header === false) ? '' :
+        $this->columnSelectorOptions['header'] = (!isset($header) || $header === false) ? '' :
             '<li class="dropdown-header">' . $header . '</li><li class="kv-divider"></li>';
         $id = $this->options['id'] . '-cols';
         Html::addCssClass($this->columnSelectorMenuOptions, 'dropdown-menu kv-checkbox-list');
-        $this->columnSelectorMenuOptions = array_replace_recursive([
-            'id' => $id . '-list',
-            'role' => 'menu',
-            'aria-labelledby' => $id,
-        ], $this->columnSelectorMenuOptions);
-        $this->columnSelectorOptions = array_replace_recursive([
-            'id' => $id,
-            'icon' => '<i class="glyphicon glyphicon-list"></i>',
-            'title' => Yii::t('kvexport', 'Select columns to export'),
-            'type' => 'button',
-            'data-toggle' => 'dropdown',
-            'aria-haspopup' => 'true',
-            'aria-expanded' => 'false',
-        ], $this->columnSelectorOptions);
+        $this->columnSelectorMenuOptions = array_replace_recursive(
+            [
+                'id' => $id . '-list',
+                'role' => 'menu',
+                'aria-labelledby' => $id,
+            ], $this->columnSelectorMenuOptions
+        );
+        $this->columnSelectorOptions = array_replace_recursive(
+            [
+                'id' => $id,
+                'icon' => '<i class="glyphicon glyphicon-list"></i>',
+                'title' => Yii::t('kvexport', 'Select columns to export'),
+                'type' => 'button',
+                'data-toggle' => 'dropdown',
+                'aria-haspopup' => 'true',
+                'aria-expanded' => 'false',
+            ], $this->columnSelectorOptions
+        );
         foreach ($this->columns as $key => $column) {
             $selector[$key] = $this->getColumnLabel($key, $column);
         }
@@ -779,12 +1445,13 @@ class ExportMenu extends GridView
      */
     protected function getColumnLabel($key, $column)
     {
-        $label = Yii::t('kvexport', 'Column') . ' ' . ($key + 1);
-        if (!empty($column->label)) {
+        $key++;
+        $label = Yii::t('kvexport', 'Column') . ' ' . $key;
+        if (isset($column->label)) {
             $label = $column->label;
-        } elseif (!empty($column->header)) {
+        } elseif (isset($column->header)) {
             $label = $column->header;
-        } elseif (!empty($column->attribute)) {
+        } elseif (isset($column->attribute)) {
             $label = $this->getAttributeLabel($column->attribute);
         } elseif (!$column instanceof DataColumn) {
             $class = explode("\\", $column::classname());
@@ -820,41 +1487,7 @@ class ExportMenu extends GridView
     }
 
     /**
-     * Initializes export settings
-     *
-     * @return void
-     */
-    public function initExport()
-    {
-        $this->_provider = clone($this->dataProvider);
-        if ($this->batchSize && $this->_provider->pagination) {
-            $this->_provider->pagination->pageSize = $this->batchSize;
-        } else {
-            $this->_provider->pagination = false;
-        }
-        if ($this->initProvider) {
-            $this->_provider->prepare(true);
-        }
-        $this->styleOptions = ArrayHelper::merge($this->_defaultStyleOptions, $this->styleOptions);
-        $this->filterModel = null;
-        $this->setDefaultExportConfig();
-        $this->exportConfig = ArrayHelper::merge($this->_defaultExportConfig, $this->exportConfig);
-        if (empty($this->filename)) {
-            $this->filename = Yii::t('kvexport', 'grid-export');
-        }
-        $target = $this->target == self::TARGET_POPUP ? 'kvExportFullDialog' : $this->target;
-        $id = ArrayHelper::getValue($this->exportFormOptions, 'id', $this->options['id'] . '-form');
-        Html::addCssClass($this->exportFormOptions, 'kv-export-full-form');
-        $this->exportFormOptions += [
-            'id' => $id,
-            'target' => $target,
-        ];
-    }
-
-    /**
      * Sets the default export configuration
-     *
-     * @return void
      */
     protected function setDefaultExportConfig()
     {
@@ -931,12 +1564,11 @@ class ExportMenu extends GridView
 
     /**
      * Registers client assets needed for Export Menu widget
-     *
-     * @return void
      */
     protected function registerAssets()
     {
         $view = $this->getView();
+        Dialog::widget($this->krajeeDialogSettings);
         ExportMenuAsset::register($view);
         $this->messages += [
             'allowPopups' => Yii::t(
@@ -951,15 +1583,20 @@ class ExportMenu extends GridView
             ),
         ];
         $formId = $this->exportFormOptions['id'];
-        $options = Json::encode([
-            'formId' => $formId,
-            'messages' => $this->messages,
-        ]);
+        $options = Json::encode(
+            [
+                'formId' => $formId,
+                'messages' => $this->messages,
+                'dialogLib' => new JsExpression(
+                    ArrayHelper::getValue($this->krajeeDialogSettings, 'libName', 'krajeeDialog')
+                ),
+            ]
+        );
         $menu = 'kvexpmenu_' . hash('crc32', $options);
         $view->registerJs("var {$menu} = {$options};\n", View::POS_HEAD);
         $script = "";
         foreach ($this->exportConfig as $format => $setting) {
-            if (empty($setting) || $setting === false) {
+            if (!isset($setting) || $setting === false) {
                 continue;
             }
             $id = $this->options['id'] . '-' . strtolower($format);
@@ -989,113 +1626,10 @@ class ExportMenu extends GridView
     }
 
     /**
-     * Renders the export menu
-     *
-     * @return string the export menu markup
-     */
-    public function renderExportMenu()
-    {
-        $items = $this->asDropdown ? [] : '';
-        foreach ($this->exportConfig as $format => $settings) {
-            if (empty($settings) || $settings === false) {
-                continue;
-            }
-            $label = '';
-            if (!empty($settings['icon'])) {
-                $css = $this->fontAwesome ? 'fa fa-' : 'glyphicon glyphicon-';
-                $iconOptions = ArrayHelper::getValue($settings, 'iconOptions', []);
-                Html::addCssClass($iconOptions, $css . $settings['icon']);
-                $label = Html::tag('i', '', $iconOptions) . ' ';
-            }
-            if (!empty($settings['label'])) {
-                $label .= $settings['label'];
-            }
-            $fmt = strtolower($format);
-            $linkOptions = ArrayHelper::getValue($settings, 'linkOptions', []);
-            $linkOptions['id'] = $this->options['id'] . '-' . $fmt;
-            $linkOptions['data-format'] = $format;
-            $options = ArrayHelper::getValue($settings, 'options', []);
-            Html::addCssClass($linkOptions, "export-full-{$fmt}");
-            if ($this->asDropdown) {
-                $items[] = [
-                    'label' => $label,
-                    'url' => '#',
-                    'linkOptions' => $linkOptions,
-                    'options' => $options,
-                ];
-            } else {
-                $tag = ArrayHelper::remove($options, 'tag', 'li');
-                if ($tag !== false) {
-                    $items .= Html::tag($tag, Html::a($label, '#', $linkOptions), $options);
-                } else {
-                    $items .= Html::a($label, '#', $linkOptions);
-                }
-            }
-        }
-        $form = $this->render($this->exportFormView, [
-            'options' => $this->exportFormOptions,
-            'exportType' => $this->_exportType,
-            'columnSelectorEnabled' => $this->_columnSelectorEnabled,
-            'exportRequestParam' => $this->exportRequestParam,
-            'exportTypeParam' => self::PARAM_EXPORT_TYPE,
-            'exportColsParam' => self::PARAM_EXPORT_COLS,
-            'colselFlagParam' => self::PARAM_COLSEL_FLAG,
-        ]);
-        if ($this->asDropdown) {
-            $icon = ArrayHelper::remove($this->dropdownOptions, 'icon', '<i class="glyphicon glyphicon-export"></i>');
-            $label = ArrayHelper::remove($this->dropdownOptions, 'label', '');
-            $label = empty($label) ? $icon : $icon . ' ' . $label;
-            if (empty($this->dropdownOptions['title'])) {
-                $this->dropdownOptions['title'] = Yii::t('kvexport', 'Export data in selected format');
-            }
-            $menuOptions = ArrayHelper::remove($this->dropdownOptions, 'menuOptions', []);
-            $itemsBefore = ArrayHelper::remove($this->dropdownOptions, 'itemsBefore', []);
-            $itemsAfter = ArrayHelper::remove($this->dropdownOptions, 'itemsAfter', []);
-            $items = ArrayHelper::merge($itemsBefore, $items, $itemsAfter);
-            $content = strtr($this->template, [
-                    '{menu}' => ButtonDropdown::widget([
-                        'label' => $label,
-                        'dropdown' => ['items' => $items, 'encodeLabels' => false, 'options' => $menuOptions],
-                        'options' => $this->dropdownOptions,
-                        'encodeLabel' => false,
-                    ]),
-                    '{columns}' => $this->renderColumnSelector(),
-                ]) . "\n" . $form;
-            return Html::tag('div', $content, $this->container);
-        } else {
-            return $items . "\n" . $form;
-        }
-    }
-
-    /**
-     * Renders the columns selector
-     *
-     * @return string the column selector markup
-     */
-    public function renderColumnSelector()
-    {
-        if (!$this->_columnSelectorEnabled) {
-            return '';
-        }
-        return $this->render($this->exportColumnsView, [
-            'options' => $this->columnSelectorOptions,
-            'menuOptions' => $this->columnSelectorMenuOptions,
-            'columnSelector' => $this->columnSelector,
-            'batchToggle' => $this->columnBatchToggleSettings,
-            'selectedColumns' => $this->selectedColumns,
-            'disabledColumns' => $this->disabledColumns,
-            'hiddenColumns' => $this->hiddenColumns,
-            'noExportColumns' => $this->noExportColumns,
-        ]);
-    }
-
-    /**
      * Raises a callable event
      *
      * @param string $event the event name
      * @param array  $params the parameters to the callable function
-     *
-     * @return void
      */
     protected function raiseEvent($event, $params)
     {
@@ -1105,315 +1639,136 @@ class ExportMenu extends GridView
     }
 
     /**
-     * Initializes PHP Excel Object Instance
+     * Parses and returns the style options for `contentBefore` or `contentAfter`
      *
-     * @return void
+     * @param array $settings the settings to parse (for `contentBefore` or `contentAfter`)
+     *
+     * @return array
      */
-    public function initPHPExcel()
+    protected function getStyleOpts($settings = [])
     {
-        $this->_objPHPExcel = new PHPExcel();
-        $creator = '';
-        $title = '';
-        $subject = '';
-        $description = Yii::t('kvexport', 'Grid export generated by Krajee ExportMenu widget (yii2-export)');
-        $category = '';
-        $keywords = '';
-        $manager = '';
-        $company = 'Krajee Solutions';
-        $created = date("Y-m-d H:i:s");
-        $lastModifiedBy = 'krajee';
-        extract($this->docProperties);
-        $this->_objPHPExcel->getProperties()
-            ->setCreator($creator)
-            ->setTitle($title)
-            ->setSubject($subject)
-            ->setDescription($description)
-            ->setCategory($category)
-            ->setKeywords($keywords)
-            ->setManager($manager)
-            ->setCompany($company)
-            ->setCreated($created)
-            ->setLastModifiedBy($lastModifiedBy);
-        $this->raiseEvent('onInitExcel', [$this->_objPHPExcel, $this]);
+        $styleOpts = ArrayHelper::getValue($settings, 'styleOptions', []);
+        $defOpts = ArrayHelper::getValue($this->_defaultStyleOptions, $this->_exportType, []);
+        $curOpts = ArrayHelper::getValue($styleOpts, $this->_exportType, []);
+        return ArrayHelper::merge($defOpts, $curOpts);
     }
 
     /**
-     * Initializes PHP Excel Writer Object Instance
-     *
-     * @param string $type the writer type as set in export config
-     *
-     * @return void
+     * Search all groupable columns
      */
-    public function initPHPExcelWriter($type)
+    protected function findGroupedColumn()
     {
-        /**
-         * @var PHPExcel_Writer_CSV $writer
-         */
-        $writer = $this->_objPHPExcelWriter = PHPExcel_IOFactory::createWriter($this->_objPHPExcel, $type);
-        if ($this->_exportType === self::FORMAT_TEXT) {
-            $writer->setDelimiter("\t");
+        foreach ($this->getVisibleColumns() as $key => $column) {
+            if (isset($column->group) && $column->group == true) {
+                $this->_groupedColumn[$key] = ['firstLine' => -1, 'value' => null];
+            } else {
+                $this->_groupedColumn[$key] = null;
+            }
         }
-        $this->raiseEvent('onInitWriter', [$this->_objPHPExcelWriter, $this]);
+        $this->_groupedColumn[] = null; //prevent the overflow
+        $this->_groupedColumn[] = null; //prevent the overflow
     }
 
     /**
-     * Initializes PHP Excel Worksheet Instance
+     * Validates a grouped row
      *
-     * @return void
+     * @param Model|array $model the data model
+     * @param Model|array $nextModel the next data model
+     * @param integer     $key the key associated with the data model
+     * @param integer     $index the zero-based index of the data model among the model array returned by
+     * [[dataProvider]].
      */
-    public function initPHPExcelSheet()
+    protected function checkGroupedRow($model, $nextModel, $key, $index)
     {
-        $this->_objPHPExcelSheet = $this->_objPHPExcel->getActiveSheet();
-        $this->raiseEvent('onInitSheet', [$this->_objPHPExcelSheet, $this]);
-    }
-
-    /**
-     * Generates the output data header content.
-     *
-     * @return void
-     */
-    public function generateHeader()
-    {
-        $columns = $this->getVisibleColumns();
-        if (count($columns) == 0) {
-            return;
-        }
-        $sheet = $this->_objPHPExcelSheet;
-        $style = ArrayHelper::getValue($this->styleOptions, $this->_exportType, []);
-        $colFirst = self::columnName(1);
-        if (!empty($this->caption)) {
-            $sheet->setCellValue($colFirst . $this->_beginRow, $this->caption, true);
-            $this->_beginRow += 2;
-        }
-        $this->_endCol = 0;
+        $endCol = 0;
         foreach ($this->getVisibleColumns() as $column) {
-            $this->_endCol++;
             /**
-             * @var DataColumn $column
+             * @var Column $column
              */
-            $head = ($column instanceof DataColumn) ? $this->getColumnHeader($column) : $column->header;
-            $id = self::columnName($this->_endCol) . $this->_beginRow;
-            $cell = $sheet->setCellValue($id, $head, true);
-            // Apply formatting to header cell
-            $sheet->getStyle($id)->applyFromArray($style);
-            $this->raiseEvent('onRenderHeaderCell', [$cell, $head, $this]);
-        }
-        for ($i = $this->_headerBeginRow; $i < ($this->_beginRow - 1); $i++) {
-            $sheet->mergeCells($colFirst . $i . ":" . self::columnName($this->_endCol) . $i);
-            $sheet->getStyle($colFirst . $i)->applyFromArray($style);
-        }
-        // Freeze the top row
-        $sheet->freezePane($colFirst . ($this->_beginRow + 1));
-    }
-
-    /**
-     * Gets the visible columns for export
-     *
-     * @return array the columns configuration
-     */
-    public function getVisibleColumns()
-    {
-        if (!$this->_columnSelectorEnabled) {
-            return $this->columns;
-        }
-        return $this->_visibleColumns;
-    }
-
-    /**
-     * Sets visible columns for export
-     *
-     * @return void
-     */
-    protected function setVisibleColumns()
-    {
-        if (!$this->_columnSelectorEnabled) {
-            $this->_visibleColumns = $this->columns;
-            return;
-        }
-        $cols = [];
-        foreach ($this->columns as $key => $column) {
-            if (!in_array($key, $this->noExportColumns) && in_array($key, $this->selectedColumns)) {
-                $cols[] = $column;
-            }
-        }
-        $this->_visibleColumns = $cols;
-    }
-
-    /**
-     * Returns an excel column name.
-     *
-     * @param int $index the column index number
-     *
-     * @return string
-     */
-    public static function columnName($index)
-    {
-        $i = intval($index) - 1;
-        if ($i >= 0 && $i < 26) {
-            return chr(ord('A') + $i);
-        }
-        if ($i > 25) {
-            return (self::columnName($i / 26)) . (self::columnName($i % 26 + 1));
-        }
-        return 'A';
-    }
-
-    /**
-     * Gets the column header content
-     *
-     * @param DataColumn $col
-     *
-     * @return string
-     */
-    public function getColumnHeader($col)
-    {
-        if ($col->header !== null || ($col->label === null && $col->attribute === null)) {
-            return trim($col->header) !== '' ? $col->header : $col->grid->emptyCell;
-        }
-        $provider = $this->dataProvider;
-        if ($col->label === null) {
-            if ($provider instanceof ActiveDataProvider && $provider->query instanceof ActiveQueryInterface) {
-                /**
-                 * @var \yii\db\ActiveRecord $model
-                 */
-                $model = new $provider->query->modelClass;
-                $label = $model->getAttributeLabel($col->attribute);
-            } else {
-                $models = $provider->getModels();
-                if (($model = reset($models)) instanceof Model) {
-                    $label = $model->getAttributeLabel($col->attribute);
-                } else {
-                    $label = Inflector::camel2words($col->attribute);
+            $value = ($column->content === null) ? (method_exists($column, 'getDataCellValue') ?
+                $this->formatter->format($column->getDataCellValue($model, $key, $index), 'raw') :
+                $column->renderDataCell($model, $key, $index)) :
+                call_user_func($column->content, $model, $key, $index, $column);
+            $nextValue = ($column->content === null) ? (method_exists($column, 'getDataCellValue') ?
+                $this->formatter->format($column->getDataCellValue($nextModel, $key, $index), 'raw') :
+                $column->renderDataCell($nextModel, $key, $index)) :
+                call_user_func($column->content, $nextModel, $key, $index, $column);
+            if ((isset($this->_groupedColumn[$endCol])) && (!is_null($this->_groupedColumn[$endCol]))) {
+                if (is_null($this->_groupedColumn[$endCol]['value'])) {
+                    $this->_groupedColumn[$endCol]['value'] = $value;
+                    $this->_groupedColumn[$endCol]['firstLine'] = $index;
                 }
+                if ($this->_groupedColumn[$endCol]['value'] != $nextValue) {
+                    $groupFooter = isset($column->groupFooter) ? $column->groupFooter : null;
+                    if ($groupFooter instanceof Closure) {
+                        $groupFooter = call_user_func($groupFooter, $model, $key, $index, $this);
+                    }
+                    if (isset($groupFooter['content'])) {
+                        $this->generateGroupedRow($groupFooter['content'], $endCol);
+                    }
+                    $this->_groupedColumn[$endCol]['firstLine'] = $index;
+                }
+                $this->_groupedColumn[$endCol]['value'] = $nextValue;
             }
-        } else {
-            $label = $col->label;
-        }
-        return $label;
-    }
-
-    /**
-     * Generates the output data body content.
-     *
-     * @return int the number of output rows.
-     */
-    public function generateBody()
-    {
-        $this->_endRow = 0;
-        $columns = $this->getVisibleColumns();
-        $models = array_values($this->_provider->getModels());
-        if (count($columns) == 0) {
-            $cell = $this->_objPHPExcelSheet->setCellValue('A1', $this->emptyText, true);
-            $model = reset($models);
-            $this->raiseEvent('onRenderDataCell', [$cell, $this->emptyText, $model, null, 0, $this]);
-            return 0;
-        }
-        // do not execute multiple COUNT(*) queries
-        $totalCount = $this->_provider->getTotalCount();
-        while (count($models) > 0) {
-            $keys = $this->_provider->getKeys();
-            foreach ($models as $index => $model) {
-                $key = $keys[$index];
-                $this->generateRow($model, $key, $this->_endRow);
-                $this->_endRow++;
-            }
-            if ($this->_provider->pagination) {
-                $this->_provider->pagination->page++;
-                $this->_provider->refresh();
-                $this->_provider->setTotalCount($totalCount);
-                $models = $this->_provider->getModels();
-            } else {
-                $models = [];
-            }
-        }
-
-        // Set autofilter on
-        $this->_objPHPExcelSheet->setAutoFilter(
-            self::columnName(1) .
-            $this->_beginRow .
-            ":" .
-            self::columnName($this->_endCol) .
-            $this->_endRow
-        );
-        return $this->_endRow;
-    }
-
-    /**
-     * Generates an output data row with the given data model and key.
-     *
-     * @param mixed   $model the data model to be rendered
-     * @param mixed   $key the key associated with the data model
-     * @param integer $index the zero-based index of the data model among the model array returned by [[dataProvider]].
-     *
-     * @return void
-     */
-    public function generateRow($model, $key, $index)
-    {
-        /**
-         * @var Column $column
-         */
-        $this->_endCol = 0;
-        foreach ($this->getVisibleColumns() as $column) {
-            if ($column instanceof SerialColumn) {
-                $value = $column->renderDataCell($model, $key, $index);
-            } elseif ($column instanceof ActionColumn) {
-                $value = '';
-            } else {
-                $format = $this->enableFormatter && isset($column->format) ? $column->format : 'raw';
-                $value = ($column->content === null) ? (method_exists($column, 'getDataCellValue') ?
-                    $this->formatter->format($column->getDataCellValue($model, $key, $index), $format) :
-                    $column->renderDataCell($model, $key, $index)) :
-                    call_user_func($column->content, $model, $key, $index, $column);
-            }
-            if (empty($value) && !empty($column->attribute) && $column->attribute !== null) {
-                $value = ArrayHelper::getValue($model, $column->attribute, '');
-            }
-            $this->_endCol++;
-            $cell = $this->_objPHPExcelSheet->setCellValue(
-                self::columnName($this->_endCol) . ($index + $this->_beginRow + 1),
-                empty($value) ? '' : strip_tags($value),
-                true
-            );
-            $this->raiseEvent('onRenderDataCell', [$cell, $value, $model, $key, $index, $this]);
+            $endCol++;
         }
     }
 
     /**
-     * Generates the output footer row after a specific row number
+     * Generate a grouped row
      *
-     * @param int $row the row number after which the footer is to be generated
+     * @param array   $groupFooter footer row
+     * @param integer $groupedCol the zero-based index of grouped column
      */
-    public function generateFooter($row)
+    protected function generateGroupedRow($groupFooter, $groupedCol)
     {
-        $columns = $this->getVisibleColumns();
-        if (count($columns) == 0) {
-            return;
-        }
-        $this->_endCol = 0;
-        foreach ($this->getVisibleColumns() as $n => $column) {
-            $this->_endCol = $this->_endCol + 1;
-            if ($column->footer) {
-                $footer = trim($column->footer) !== '' ? $column->footer : $column->grid->blankDisplay;
-                $cell = $this->_objPHPExcel->getActiveSheet()->setCellValue(
-                    self::columnName($this->_endCol) . ($row + 2),
-                    $footer,
-                    true
-                );
-                $this->raiseEvent('onRenderFooterCell', [$cell, $footer, $this]);
+        $endGroupedCol = 0;
+        $this->_groupedRow = [];
+        $fLine = ArrayHelper::getValue($this->_groupedColumn[$groupedCol], 'firstLine', -1);
+        $fLine = ($fLine == $this->_beginRow) ? $this->_beginRow + 1 : ($fLine + 3);
+        $firstLine = ($this->_endRow == ($this->_beginRow + 3) && $fLine == 2) ? $this->_beginRow + 3 : $fLine;
+        $endLine = $this->_endRow + 1;
+        list($endLine, $firstLine) = ($endLine > $firstLine) ? [$endLine, $firstLine] : [$firstLine, $endLine];
+        foreach ($this->getVisibleColumns() as $key => $column) {
+            $value = isset($groupFooter[$key]) ? $groupFooter[$key] : '';
+            $endGroupedCol++;
+            $groupedRange = self::columnName($key + 1) . $firstLine . ":" . self::columnName($key + 1) . $endLine;
+            //$lastCell = self::columnName($key + 1) . $endLine - 1;
+            if (isset($column->group) && $column->group) {
+                $this->_objPHPExcelSheet->mergeCells($groupedRange);
             }
+            switch ($value) {
+                case self::F_SUM:
+                    $value = "=sum($groupedRange)";
+                    break;
+                case self::F_COUNT:
+                    $value = '=countif(' . $groupedRange . ',"*")';
+                    break;
+                case self::F_AVG:
+                    $value = "=AVERAGE($groupedRange)";
+                    break;
+                case self::F_MAX:
+                    $value = "=max($groupedRange)";
+                    break;
+                case self::F_MIN:
+                    $value = "=min($groupedRange)";
+                    break;
+            }
+            if ($value instanceof \Closure) {
+                $value = call_user_func($value, $groupedRange, $this);
+            }
+            $this->_groupedRow[] = !isset($value) || $value === '' ? '' : strip_tags($value);
         }
     }
 
     /**
      * Set HTTP headers for download
-     *
-     * @return void
      */
     protected function setHttpHeaders()
     {
         $config = ArrayHelper::getValue($this->exportConfig, $this->_exportType, []);
         $extension = ArrayHelper::getValue($config, 'extension', 'xlsx');
-        $mime = ArrayHelper::getValue($config, 'mime', '');
+        $mime = ArrayHelper::getValue($config, 'mime', null);
         if (strstr($_SERVER["HTTP_USER_AGENT"], "MSIE") == false) {
             header("Cache-Control: no-cache");
             header("Pragma: no-cache");
@@ -1423,83 +1778,10 @@ class ExportMenu extends GridView
         }
         header("Expires: Sat, 26 Jul 1979 05:00:00 GMT");
         header("Content-Encoding: {$this->encoding}");
-        if (!empty($mime)) {
+        if ($mime === null || $mime === '') {
             header("Content-Type: {$mime}; charset={$this->encoding}");
         }
         header("Content-Disposition: attachment; filename=\"{$this->filename}.{$extension}\"");
         header("Cache-Control: max-age=0");
-    }
-
-    /**
-     * Gets the PHP Excel object
-     *
-     * @return PHPExcel the current PHPExcel object instance
-     */
-    public function getPHPExcel()
-    {
-        return $this->_objPHPExcel;
-    }
-
-    /**
-     * Gets the PHP Excel writer object
-     *
-     * @return PHPExcel_Writer_Abstract the current PHPExcel_Writer_Abstract object instance
-     */
-    public function getPHPExcelWriter()
-    {
-        return $this->_objPHPExcelWriter;
-    }
-
-    /**
-     * Gets the PHP Excel sheet object
-     *
-     * @return PHPExcel_Worksheet the current PHPExcel_Worksheet object instance
-     */
-    public function getPHPExcelSheet()
-    {
-        return $this->_objPHPExcelSheet;
-    }
-
-    /**
-     * Sets the PHP Excel object
-     *
-     * @param $obj PHPExcel the PHPExcel object instance
-     */
-    public function setPHPExcel($obj)
-    {
-        $this->_objPHPExcel = $obj;
-    }
-
-    /**
-     * Sets the PHP Excel writer object
-     *
-     * @param $obj PHPExcel_Writer_Abstract the PHPExcel_Writer_Abstract object instance
-     */
-    public function setPHPExcelWriter($obj)
-    {
-        $this->_objPHPExcelWriter = $obj;
-    }
-
-    /**
-     * Sets the PHP Excel sheet object
-     *
-     * @param $obj PHPExcel_Worksheet the PHPExcel_Worksheet object instance
-     */
-    public function setPHPExcelSheet($obj)
-    {
-        $this->_objPHPExcelSheet = $obj;
-    }
-
-    /**
-     * Destroys PHP Excel Object Instance
-     *
-     * @return void
-     */
-    public function destroyPHPExcel()
-    {
-        if (isset($this->_objPHPExcel)) {
-            $this->_objPHPExcel->disconnectWorksheets();
-        }
-        unset($this->_provider, $this->_objPHPExcelWriter, $this->_objPHPExcelSheet, $this->_objPHPExcel);
     }
 }

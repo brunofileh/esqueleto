@@ -9,10 +9,10 @@
  * https://github.com/jseidelin/exif-js
  *
  * Licensed under the MIT license:
- * http://www.opensource.org/licenses/MIT
+ * https://opensource.org/licenses/MIT
  */
 
-/*global define, module, require, window */
+/* global define */
 
 ;(function (factory) {
   'use strict'

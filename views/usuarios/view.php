@@ -10,7 +10,6 @@ use yii\widgets\DetailView;
 $infoModulo = [];
 ?>
 
-<?php $this->beginBlock('conteudo-principal') ?>
 <div class="tab-modulos-view  box box-default">
 
     <div class="box-header with-border">
@@ -67,4 +66,3 @@ $infoModulo = [];
         </div>
     </div>
 </div>
-<?php $this->endBlock() ?>

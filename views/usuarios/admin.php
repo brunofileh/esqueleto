@@ -9,10 +9,8 @@ use app\components\MenuLateralModuloWidget;
 
 ?>
 
-<?php $this->beginBlock('conteudo-principal') ?>
 	<div class="usuarios-admin">
 		<?=  $this->render('_form', [
 			'model' => $model,
 		]) ?>
 	</div>
-<?php $this->endBlock() ?>
